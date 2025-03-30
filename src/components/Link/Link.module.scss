@@ -1,0 +1,20 @@
+.link {
+  color: $text-primary;
+  text-decoration: none;
+
+  &:visited {
+    color: $text-primary;
+  }
+
+  &:hover {
+    color: $text-accent;
+  }
+
+  &.activeLink {
+    color: $text-accent;
+  }
+
+  &.underline {
+    text-decoration: underline;
+  }
+}

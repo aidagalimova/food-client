@@ -1,0 +1,48 @@
+.pagination {
+  @include flex-container(row, center, center, $space-m);
+
+  padding-bottom: $space-xxxl;
+  .pageNumbersContainer {
+    @include flex-container(row, center, center, $space-min, fit-content);
+    min-width: 216px;
+  }
+
+  .pageButton {
+    width: 38px;
+    height: 42px;
+    background: transparent;
+    user-select: none;
+    cursor: pointer;
+
+    p {
+      color: $text-primary;
+    }
+
+    &:hover {
+      background-color: rgba(181, 70, 15, 0.1);
+    }
+
+    &.active {
+      background-color: #b5460f;
+      p {
+        color: white;
+      }
+    }
+  }
+
+  .arrowButton {
+    background: transparent;
+    border: none;
+    color: #151411;
+    cursor: pointer;
+
+    &.rightArrow {
+      transform: rotate(180deg);
+    }
+
+    &:disabled {
+      color: $text-secondary;
+      cursor: default;
+    }
+  }
+}

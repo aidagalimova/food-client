@@ -1,0 +1,23 @@
+.search {
+  @include flex-container(column, flex-start, flex-start, $space-l);
+
+  .searchInput {
+    @include flex-container(row, flex-start, flex-start, $space-l);
+  }
+
+  .searchButton {
+    display: block;
+    width: 64px;
+  }
+}
+
+.categoriesDropdown {
+  width: 300px;
+  align-self: flex-end;
+}
+
+@media (max-width: 600px) {
+  .categoriesDropdown {
+    width: 100%;
+  }
+}

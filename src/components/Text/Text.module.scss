@@ -1,0 +1,69 @@
+.text {
+  font-family: "Roboto";
+}
+
+// VIEW
+.title {
+  @include title;
+}
+
+.p-20 {
+  @include p-20;
+}
+
+.p-18 {
+  @include p-18;
+}
+
+.p-16 {
+  @include p-16;
+}
+
+.p-14 {
+  @include p-14;
+}
+
+// WEIGHT
+.normal {
+  font-weight: 400;
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.semibold {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+// COLOR
+.primary {
+  color: $text-primary;
+}
+
+.secondary {
+  color: $text-secondary;
+}
+
+.accent {
+  color: $text-accent;
+}
+
+//MAX LINES
+.maxLines {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.highlighted {
+  text-decoration: underline;
+}
+
+.nonSelectable {
+  user-select: none;
+}

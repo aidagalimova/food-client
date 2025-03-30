@@ -1,0 +1,89 @@
+// Флекс контейнер с настраиваемыми параметрами
+@mixin flex-container($direction: row, $justify: flex-start, $align: stretch, $gap: 0, $width: 100%) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+  width: $width;
+}
+
+@mixin page-container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+@mixin side-padding($desktop: 100px, $tablet: 32px, $mobile: 16px) {
+  padding-left: $desktop;
+  padding-right: $desktop;
+
+  @media (max-width: 1400px) {
+    padding-left: $tablet;
+    padding-right: $tablet;
+  }
+
+  @media (max-width: 600px) {
+    padding-left: $mobile;
+    padding-right: $mobile;
+  }
+}
+
+@mixin title {
+  font-size: 44px;
+  line-height: 48px;
+  @media (max-width: 1400px) {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
+}
+
+@mixin p-20 {
+  font-size: 20px;
+  line-height: 24px;
+  @media (max-width: 1400px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}
+
+@mixin p-18 {
+  font-size: 18px;
+  line-height: 22px;
+  @media (max-width: 1400px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 15px;
+    line-height: 18px;
+  }
+}
+
+@mixin p-16 {
+  font-size: 16px;
+  line-height: 20px;
+  @media (max-width: 1400px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+@mixin p-14 {
+  font-size: 14px;
+  line-height: 18px;
+  @media (max-width: 1400px) {
+    font-size: 13px;
+    line-height: 17px;
+  }
+}

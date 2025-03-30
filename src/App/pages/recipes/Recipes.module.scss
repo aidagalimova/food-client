@@ -1,0 +1,15 @@
+.header {
+  @include flex-container(column, flex-start, flex-start, $space-xxxl);
+
+  .headerTop {
+    @include flex-container(column, flex-start, flex-start, $space-xl);
+  }
+}
+
+.pageContainer {
+  padding-top: $space-xxxl;
+
+  @include flex-container(column, flex-start, flex-start, $space-xxxl);
+  @include page-container;
+  @include side-padding;
+}
