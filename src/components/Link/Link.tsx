@@ -3,13 +3,13 @@ import { Link as RouterLink } from 'react-router-dom';
 import Text, { TextView, TextWeight } from 'components/Text';
 import style from './Link.module.scss';
 
-interface LinkProps {
+type LinkProps = {
   to: string;
   name: string;
   isActive?: boolean;
   decoration?: 'none' | 'underline';
   className?: string;
-}
+};
 
 const Link = ({ to, name, isActive, decoration = 'none', className }: LinkProps) => {
   return (

@@ -1,11 +1,11 @@
 import Text, { TextTag, TextView, TextWeight } from 'components/Text';
-import type { Direction } from 'api/types';
+import type { Direction } from 'api/recipes';
 
 import style from './RecipeDirections.module.scss';
 
-interface RecipeDirectionsProps {
+type RecipeDirectionsProps = {
   recipeDirections?: Direction[];
-}
+};
 
 const RecipeDirections = ({ recipeDirections }: RecipeDirectionsProps) => {
   return (

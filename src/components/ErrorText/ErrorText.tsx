@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import type { ApiError } from 'api/types';
 import style from './ErrorText.module.scss';
 
-interface ErrorTextProps {
+type ErrorTextProps = {
   error: ApiError;
   link?: string;
   linkText?: string;
-}
+};
 
 const ErrorText = ({ error, link, linkText }: ErrorTextProps) => {
   return (

@@ -1,13 +1,13 @@
-import { Ingredient, Equipment } from 'api/types';
+import { Ingredient, Equipment } from 'api/recipes';
 
 import NeedsList from './NeedsList';
 import { NeedType } from './RecipeNeeds.types';
 import style from './RecipeNeeds.module.scss';
 
-interface RecipeNeedsProps {
+type RecipeNeedsProps = {
   recipeIngredients: Ingredient[];
   recipeEquipment: Equipment[];
-}
+};
 
 const RecipeNeeds = ({ recipeIngredients, recipeEquipment }: RecipeNeedsProps) => {
   return (

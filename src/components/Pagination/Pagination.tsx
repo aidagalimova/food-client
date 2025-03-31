@@ -5,17 +5,18 @@ import ArrowLeftIcon from 'components//icons/ArrowLeftIcon';
 import Button from 'components/Button';
 
 import style from './Pagination.module.scss';
-interface PaginationProps {
+
+type PaginationProps = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-}
+};
 
-interface PaginationButtonProps {
+type PaginationButtonProps = {
   pageNumber: number;
   onPageChange: (page: number) => void;
   isActive: boolean;
-}
+};
 
 const PaginationButton = ({ pageNumber, onPageChange, isActive }: PaginationButtonProps) => {
   return (

@@ -3,7 +3,7 @@ import Text, { TextView, TextWeight, TextColor } from 'components/Text';
 
 import style from './RecipeInfo.module.scss';
 
-interface RecipeInfoProps {
+type RecipeInfoProps = {
   preparationTime: number;
   cookingTime: number;
   totalTime: number;
@@ -13,7 +13,7 @@ interface RecipeInfoProps {
   summary: string;
   image: string;
   imageAlt: string | null;
-}
+};
 
 const RecipeInfo = ({
   preparationTime,
