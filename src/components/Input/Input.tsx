@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 import style from './Input.module.scss';
-import useDebounce from 'utils/useDebounce';
+import { useDebounce } from 'utils/useDebounce';
 import { useEffect, useState } from 'react';
 
 export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {

@@ -31,7 +31,7 @@
   }
 
   .description {
-    padding: 36px 36px 29px 36px;
+    padding: 36px 36px 29px;
     border-radius: $border-radius;
     background-color: rgba(181, 70, 15, 0.33);
     font-weight: normal;
@@ -46,7 +46,7 @@
   }
 }
 
-@media (max-width: 1040px) {
+@media (max-width: $screen-l) {
   .recipeInfoContainer {
     .recipeInfoHeader {
       gap: $space-m;
@@ -63,7 +63,7 @@
   }
 }
 
-@media (max-width: 880px) {
+@media (max-width: $screen-m) {
   .recipeInfoContainer {
     .recipeInfoHeader {
       @include flex-container(column, center, center, $space-xxxl);

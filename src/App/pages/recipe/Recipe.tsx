@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import Loader from 'components/Loader';
 import Text, { TextTag, TextView, TextWeight } from 'components/Text';
 import ArrowLeftIcon from 'components/icons/ArrowLeftIcon';
 import { IconColor } from 'components/icons/Icon';
 import ErrorText from 'components/ErrorText';
-import { recipesApi } from 'api/recipes';
-import type { ApiError, FullRecipe } from 'api/types';
+import recipesApi, { FullRecipe } from 'api/recipes';
+import type { ApiError } from 'api/types';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeNeeds from './components/RecipeNeeds';
 import RecipeDirections from './components/RecipeDirections';
 
 import style from './Recipe.module.scss';
 
-const Recipe = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+type RecipeParams = {
+  id: string;
+};
 
+const Recipe = () => {
+  const { id } = useParams<RecipeParams>();
   const [recipe, setRecipe] = useState<FullRecipe | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
 
@@ -28,13 +31,15 @@ const Recipe = () => {
         setError(null);
         const response = await recipesApi.getRecipeById(id);
         setRecipe(response.data);
-      } catch (err: any) {
-        setError(err.response.data.error);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          setError(err.response?.data.error);
+        }
       }
     };
 
     fetchRecipe();
-  }, [id, navigate]);
+  }, [id]);
 
   if (error) {
     return <ErrorText error={error} link="/recipes" linkText="Вернуться к списку рецептов" />;

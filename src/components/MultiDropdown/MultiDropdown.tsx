@@ -1,10 +1,10 @@
-import { useMemo, useRef, useState } from 'react';
+import { memo, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import Input from '../Input';
 import ArrowDownIcon from '../icons/ArrowDownIcon';
 import Text, { TextView, TextWeight } from '../Text';
-import { useClickOutside } from '../../utils/useClickOutside';
-import CrossIcon from '../icons/CrossIcon';
+import { useClickOutside } from 'utils/useClickOutside';
+
 import style from './MultiDropdown.module.scss';
 
 export type Option = {
@@ -35,7 +35,7 @@ const MultiDropdown = ({ className, options, value, onChange, getTitle, disabled
   }, [searchValue, options]);
 
   const optionItems = useMemo(() => {
-    if (filteredOptions.length === 0) {
+    if (!filteredOptions.length) {
       return (
         <li className={style.notFound}>
           <Text view={TextView.P_16} weight={TextWeight.NORMAL}>
@@ -52,7 +52,7 @@ const MultiDropdown = ({ className, options, value, onChange, getTitle, disabled
       return (
         <li
           key={option.key}
-          className={clsx(style.optionsItem, isSelected && style.selected)}
+          className={clsx(style.optionsItem, { [style.selected]: isSelected })}
           onClick={() => onChange(isSelected ? withoutCurOption : [...value, option])}
         >
           <Text view={TextView.P_16} weight={TextWeight.NORMAL}>
@@ -72,14 +72,14 @@ const MultiDropdown = ({ className, options, value, onChange, getTitle, disabled
         afterSlot={
           <div
             onClick={() => setIsOpen((prev) => !prev)}
-            className={clsx(style.arrowIcon, isOpen && style.arrowUpIcon)}
+            className={clsx(style.arrowIcon, { [style.arrowUpIcon]: isOpen })}
           >
             <ArrowDownIcon />
           </div>
         }
         onFocus={() => setIsOpen(true)}
         disabled={disabled}
-        className={clsx(value.length && style.withSelectedValues)}
+        className={clsx({ [style.withSelectedValues]: value.length })}
       />
 
       {isOpen && !disabled && <ul className={style.optionsList}>{optionItems}</ul>}
@@ -87,4 +87,4 @@ const MultiDropdown = ({ className, options, value, onChange, getTitle, disabled
   );
 };
 
-export default MultiDropdown;
+export default memo(MultiDropdown);

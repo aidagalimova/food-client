@@ -1,4 +1,6 @@
-export const links = [
+import { HeaderLink } from './Header.types';
+
+export const links: HeaderLink[] = [
   {
     id: 0,
     name: 'Recipes',

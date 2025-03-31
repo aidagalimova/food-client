@@ -3,30 +3,28 @@
 
   position: relative;
 
-  &::after {
+  &::after,
+  &::before {
     content: "";
     position: absolute;
     top: $space-xs;
     left: 0;
     right: 0;
     margin-inline: auto;
-    height: 100%;
-    width: 1px;
     background-color: $text-accent;
   }
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-inline: auto;
-    top: 0;
+  &::after {
+    top: $space-xs;
+    width: 1px;
     height: 100%;
+  }
+
+  &::before {
+    top: 0;
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background-color: $text-accent;
   }
 
   .listContainer {
@@ -49,7 +47,7 @@
   }
 }
 
-@media (max-width: 1040px) {
+@media (max-width: $screen-l) {
   .container {
     .listContainer {
       .list {
@@ -59,7 +57,7 @@
   }
 }
 
-@media (max-width: 580px) {
+@media (max-width: $screen-s) {
   .container {
     @include flex-container(column, flex-start, flex-start, $space-xxl);
 

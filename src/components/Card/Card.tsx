@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import clsx from 'clsx';
 import Text, { TextView, TextWeight, TextColor } from '../Text';
 
@@ -48,4 +49,4 @@ const Card = ({ className, image, captionSlot, title, subtitle, contentSlot, onC
   );
 };
 
-export default Card;
+export default memo(Card);

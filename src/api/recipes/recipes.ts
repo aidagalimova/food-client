@@ -1,4 +1,4 @@
-import { axiosApi } from './api';
+import { axiosApi } from '../api';
 import type { RecipeResponse, SingleRecipeResponse } from './types';
 
 interface GetRecipesParams {
@@ -8,7 +8,7 @@ interface GetRecipesParams {
   categoryIds?: string[];
 }
 
-export const recipesApi = {
+const recipesApi = {
   getRecipes: async ({ searchText, categoryIds, page = 1, pageSize = 9 }: GetRecipesParams = {}) => {
     const response = await axiosApi.get<RecipeResponse>('recipes', {
       params: {
@@ -41,3 +41,5 @@ export const recipesApi = {
     return response.data;
   },
 };
+
+export default recipesApi;

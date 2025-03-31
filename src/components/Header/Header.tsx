@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import Text, { TextView, TextWeight } from 'components/Text';
@@ -66,9 +66,9 @@ const Header = () => {
         ) : (
           <MenuIcon color={IconColor.ACCENT} cursor="pointer" onClick={() => setIsMobileMenuOpen(true)} />
         )}
-        <div className={clsx(style.mobileMenu, isMobileMenuOpen && style.active)}>{navigation}</div>
+        <div className={clsx(style.mobileMenu, { [style.active]: isMobileMenuOpen })}>{navigation}</div>
         <div
-          className={clsx(style.overlay, isMobileMenuOpen && style.active)}
+          className={clsx(style.overlay, { [style.active]: isMobileMenuOpen })}
           onClick={() => setIsMobileMenuOpen(false)}
         />
       </div>
@@ -76,4 +76,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

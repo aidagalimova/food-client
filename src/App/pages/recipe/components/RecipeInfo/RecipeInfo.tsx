@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import DOMPurify from 'dompurify';
 import Text, { TextView, TextWeight, TextColor } from 'components/Text';
 
@@ -27,17 +26,14 @@ const RecipeInfo = ({
   image,
   imageAlt,
 }: RecipeInfoProps) => {
-  const recipeInfoData = useMemo(
-    () => [
-      { title: 'Preparation', value: `${preparationTime} minutes` },
-      { title: 'Cooking', value: `${cookingTime} minutes` },
-      { title: 'Total', value: `${totalTime} minutes` },
-      { title: 'Likes', value: likes },
-      { title: 'Servings', value: `${servings} servings` },
-      { title: 'Ratings', value: `${rating} / 5` },
-    ],
-    [preparationTime, cookingTime, totalTime, likes, servings, rating],
-  );
+  const recipeInfoData = [
+    { title: 'Preparation', value: `${preparationTime} minutes` },
+    { title: 'Cooking', value: `${cookingTime} minutes` },
+    { title: 'Total', value: `${totalTime} minutes` },
+    { title: 'Likes', value: likes },
+    { title: 'Servings', value: `${servings} servings` },
+    { title: 'Ratings', value: `${rating} / 5` },
+  ];
 
   return (
     <section className={style.recipeInfoContainer}>

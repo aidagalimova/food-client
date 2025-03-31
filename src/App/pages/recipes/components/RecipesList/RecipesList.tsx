@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 import Card from 'components/Card';
 import Text, { TextView } from 'components/Text';
 import Loader from 'components/Loader';
@@ -8,8 +9,8 @@ import TimeIcon from 'components/icons/TimeIcon';
 import { IconColor } from 'components/icons/Icon';
 import ErrorText from 'components/ErrorText';
 import Pagination from 'components/Pagination';
-import { Recipe, ApiError, PaginationMeta } from 'api/types';
-import { recipesApi } from 'api/recipes';
+import { ApiError, PaginationMeta } from 'api/types';
+import recipesApi, { Recipe } from 'api/recipes';
 import { useAddSearchParam } from 'utils/useAddSearchParams';
 
 import style from './RecipesList.module.scss';
@@ -23,9 +24,9 @@ const RecipesList = () => {
   const [paginationInfo, setPaginationInfo] = useState<PaginationMeta | null>(null);
 
   const [searchParams, addSearchParam] = useAddSearchParam();
-  const currentPage = useMemo(() => Number(searchParams.get('page') || 1), [searchParams]);
-  const searchText = useMemo(() => searchParams.get('search') || '', [searchParams]);
-  const categoryIds = useMemo(() => searchParams.get('categoryIds') || '', [searchParams]);
+  const currentPage = Number(searchParams.get('page') || 1);
+  const searchText = searchParams.get('search') || '';
+  const categoryIds = searchParams.get('categoryIds') || '';
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -38,8 +39,10 @@ const RecipesList = () => {
 
         setRecipes(response.data);
         setPaginationInfo(response.meta.pagination);
-      } catch (err: any) {
-        setError(err.response.data.error);
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          setError(err.response?.data.error);
+        }
       }
     };
 
@@ -58,7 +61,7 @@ const RecipesList = () => {
     return <ErrorText error={error} />;
   }
 
-  if (recipes === null) {
+  if (!recipes) {
     return (
       <div className={style.loaderContainer}>
         <Loader />
@@ -66,7 +69,7 @@ const RecipesList = () => {
     );
   }
 
-  if (recipes.length === 0) {
+  if (!recipes.length) {
     return (
       <Text view={TextView.P_20} className={style.notFound} nonSelectable>
         Ничего не найдено

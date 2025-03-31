@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import SearchIcon from 'components/icons/SearchIcon';
 import MultiDropdown, { Option } from 'components/MultiDropdown';
-import { mealCategoriesApi } from 'api/mealCategories';
+import mealCategoriesApi from 'api/mealCategories';
 import { useAddSearchParam } from 'utils/useAddSearchParams';
 
 import style from './Search.module.scss';
@@ -36,6 +36,15 @@ const Search = () => {
     addSearchParam('search', localSearchText);
   };
 
+  const handleDropdownChange = useCallback((value: Option[]) => {
+    addSearchParam('categoryIds', value.map((category) => category.key.toString()).join(','));
+  }, []);
+
+  const handleDropdownGetTitle = useCallback((value: Option[]) => {
+    if (!selectedCategories.length) return 'Categories';
+    return value.map((category) => category.value).join(', ');
+  }, []);
+
   return (
     <section className={style.search}>
       <div className={style.searchInput}>
@@ -67,13 +76,8 @@ const Search = () => {
         <MultiDropdown
           options={allCategories}
           value={selectedCategories}
-          onChange={(value) =>
-            addSearchParam('categoryIds', value.map((category) => category.key.toString()).join(','))
-          }
-          getTitle={() => {
-            if (!selectedCategories.length) return 'Categories';
-            return selectedCategories.map((category) => category.value).join(', ');
-          }}
+          onChange={handleDropdownChange}
+          getTitle={handleDropdownGetTitle}
         />
       </div>
     </section>

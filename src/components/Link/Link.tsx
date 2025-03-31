@@ -15,12 +15,10 @@ const Link = ({ to, name, isActive, decoration = 'none', className }: LinkProps)
   return (
     <RouterLink
       to={to}
-      className={clsx(
-        style.link,
-        isActive && style.activeLink,
-        decoration === 'underline' && style.underline,
-        className,
-      )}
+      className={clsx(style.link, className, {
+        [style.activeLink]: isActive,
+        [style.underline]: decoration === 'underline',
+      })}
     >
       <Text view={TextView.P_16} weight={isActive ? TextWeight.SEMIBOLD : TextWeight.NORMAL} nonSelectable>
         {name}

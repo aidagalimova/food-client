@@ -3,9 +3,11 @@ import Icon from '../icons/Icon';
 
 import style from './CheckBox.module.scss';
 
+type Promisable<T> = T | Promise<T>;
+
 export type CheckBoxProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'checked'> & {
   checked?: boolean;
-  onChange: (checked: boolean) => void;
+  onChange: (checked: boolean) => Promisable<any>;
   className?: string;
 };
 

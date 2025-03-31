@@ -21,19 +21,19 @@
   padding-bottom: $space-xxl;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: $screen-xl) {
   .recipesList {
     gap: $space-xxl;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: $screen-l) {
   .recipesList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: $screen-s) {
   .recipesList {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }

@@ -36,15 +36,7 @@
   }
 }
 
-@media (max-width: 900px) {
-  .header {
-    .leftSide {
-      gap: $space-m;
-    }
-  }
-}
-
-@media (max-width: 780px) {
+@media (max-width: $screen-m) {
   .header {
     .leftSide {
       .navigation {
