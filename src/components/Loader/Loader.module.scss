@@ -15,34 +15,34 @@
     width: 24px;
     height: 24px;
   }
+}
 
-  .loader {
+.loader {
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-color: $loader-bg;
+  border-radius: 50%;
+  border-right-color: transparent;
+  transform: rotate(32deg);
+  animation: rotate 1s linear infinite;
+
+  &.l {
     width: 40px;
     height: 40px;
-    border-style: solid;
-    border-color: $loader-bg;
-    border-radius: 50%;
-    border-right-color: transparent;
-    transform: rotate(32deg);
-    animation: rotate 1s linear infinite;
+    border-width: 5px;
+  }
 
-    &.l {
-      width: 40px;
-      height: 40px;
-      border-width: 5px;
-    }
+  &.m {
+    width: 32px;
+    height: 32px;
+    border-width: 4px;
+  }
 
-    &.m {
-      width: 32px;
-      height: 32px;
-      border-width: 4px;
-    }
-
-    &.s {
-      width: 16px;
-      height: 16px;
-      border-width: 2px;
-    }
+  &.s {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
   }
 }
 

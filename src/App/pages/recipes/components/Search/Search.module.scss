@@ -1,14 +1,14 @@
 .search {
   @include flex-container(column, flex-start, flex-start, $space-l);
+}
 
-  .searchInput {
-    @include flex-container(row, flex-start, flex-start, $space-l);
-  }
+.searchInput {
+  @include flex-container(row, flex-start, flex-start, $space-l);
+}
 
-  .searchButton {
-    display: block;
-    width: 64px;
-  }
+.searchButton {
+  display: block;
+  width: 64px;
 }
 
 .categoriesDropdown {

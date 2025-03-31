@@ -1,15 +1,15 @@
 .directionsSection {
   @include flex-container(column, flex-start, flex-start, $space-xl);
+}
 
-  .directionsList {
-    @include flex-container(column, flex-start, flex-start, $space-l);
+.directionsList {
+  @include flex-container(column, flex-start, flex-start, $space-l);
 
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    .directionItem {
-      @include flex-container(column, flex-start, flex-start, $space-xxs);
-    }
-  }
+.directionItem {
+  @include flex-container(column, flex-start, flex-start, $space-xxs);
 }

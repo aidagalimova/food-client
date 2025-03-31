@@ -1,35 +1,6 @@
 .recipeInfoContainer {
   @include flex-container(column, flex-start, flex-start, $space-xxxl);
 
-  .recipeInfoHeader {
-    @include flex-container(row, flex-start, center, $space-xxxl);
-
-    .recipeInfoImage {
-      min-width: 448px;
-      height: 298px;
-      border-radius: $border-radius;
-      object-fit: cover;
-    }
-
-    .recipeInfoContainer {
-      width: 100%;
-
-      .recipeInfo {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        column-gap: 100px;
-        row-gap: 50px;
-        justify-items: center;
-        width: fit-content;
-        align-self: center;
-
-        .infoBlock {
-          @include flex-container(column, center, center, $space-xxs, fit-content);
-        }
-      }
-    }
-  }
-
   .description {
     padding: 36px 36px 29px;
     border-radius: $border-radius;
@@ -46,38 +17,63 @@
   }
 }
 
+.recipeInfoHeader {
+  @include flex-container(row, flex-start, center, $space-xxxl);
+}
+
+.recipeInfoImage {
+  min-width: 448px;
+  height: 298px;
+  border-radius: $border-radius;
+  object-fit: cover;
+}
+
+.recipeInfoContainer {
+  width: 100%;
+}
+
+.recipeInfo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 100px;
+  row-gap: 50px;
+  justify-items: center;
+  width: fit-content;
+  align-self: center;
+}
+
+.infoBlock {
+  @include flex-container(column, center, center, $space-xxs, fit-content);
+}
+
 @media (max-width: $screen-l) {
+  .recipeInfoHeader {
+    gap: $space-m;
+  }
+
   .recipeInfoContainer {
-    .recipeInfoHeader {
-      gap: $space-m;
+    width: 100%;
+  }
 
-      .recipeInfoContainer {
-        width: 100%;
-
-        .recipeInfo {
-          width: 100%;
-          column-gap: unset;
-        }
-      }
-    }
+  .recipeInfo {
+    width: 100%;
+    column-gap: unset;
   }
 }
 
 @media (max-width: $screen-m) {
-  .recipeInfoContainer {
-    .recipeInfoHeader {
-      @include flex-container(column, center, center, $space-xxxl);
+  .recipeInfoHeader {
+    @include flex-container(column, center, center, $space-xxxl);
+  }
 
-      .recipeInfoImage {
-        min-width: unset;
-        max-width: 448px;
-        width: inherit;
-        height: unset;
-      }
-    }
+  .recipeInfoImage {
+    min-width: unset;
+    max-width: 448px;
+    width: inherit;
+    height: unset;
+  }
 
-    .description {
-      padding: $space-xs $space-m;
-    }
+  .description {
+    padding: $space-xs $space-m;
   }
 }

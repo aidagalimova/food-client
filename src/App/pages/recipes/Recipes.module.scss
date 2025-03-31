@@ -1,9 +1,9 @@
 .header {
   @include flex-container(column, flex-start, flex-start, $space-xxxl);
+}
 
-  .headerTop {
-    @include flex-container(column, flex-start, flex-start, $space-xl);
-  }
+.headerTop {
+  @include flex-container(column, flex-start, flex-start, $space-xl);
 }
 
 .pageContainer {

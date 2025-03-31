@@ -5,14 +5,14 @@
   @include flex-container(column, flex-start, flex-start, $space-xxl);
   @include page-container;
   @include side-padding;
+}
 
-  .recipeHeader {
-    @include flex-container(row, flex-start, center, $space-m);
+.recipeHeader {
+  @include flex-container(row, flex-start, center, $space-m);
+}
 
-    .backLink {
-      @include flex-container(row, flex-start, center, 0, fit-content);
-    }
-  }
+.backLink {
+  @include flex-container(row, flex-start, center, 0, fit-content);
 }
 
 .recipeContent {
