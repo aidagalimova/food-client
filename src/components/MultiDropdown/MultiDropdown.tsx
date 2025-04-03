@@ -39,7 +39,7 @@ const MultiDropdown = ({ className, options, value, onChange, getTitle, disabled
       return (
         <li className={style.notFound}>
           <Text view={TextView.P_16} weight={TextWeight.NORMAL}>
-            Ничего не найдено
+            No options found
           </Text>
         </li>
       );

@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { AxiosError } from 'axios';
 import Loader from 'components/Loader';
 import Text, { TextTag, TextView, TextWeight } from 'components/Text';
 import ArrowLeftIcon from 'components/icons/ArrowLeftIcon';
 import { IconColor } from 'components/icons/Icon';
 import ErrorText from 'components/ErrorText';
-import recipesApi, { FullRecipe } from 'api/recipes';
-import type { ApiError } from 'api/types';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeNeeds from './components/RecipeNeeds';
 import RecipeDirections from './components/RecipeDirections';
+import { useRecipe } from 'store/recipeStore';
+import { observer } from 'mobx-react-lite';
 
 import style from './Recipe.module.scss';
 
@@ -18,34 +16,15 @@ type RecipeParams = {
   id: string;
 };
 
-const Recipe = () => {
+const Recipe = observer(() => {
   const { id } = useParams<RecipeParams>();
-  const [recipe, setRecipe] = useState<FullRecipe | null>(null);
-  const [error, setError] = useState<ApiError | null>(null);
-
-  useEffect(() => {
-    const fetchRecipe = async () => {
-      if (!id) return;
-
-      try {
-        setError(null);
-        const response = await recipesApi.getRecipeById(id);
-        setRecipe(response.data);
-      } catch (err) {
-        if (err instanceof AxiosError) {
-          setError(err.response?.data.error);
-        }
-      }
-    };
-
-    fetchRecipe();
-  }, [id]);
+  const { recipe, isLoading, error } = useRecipe(id);
 
   if (error) {
     return <ErrorText error={error} link="/recipes" linkText="Вернуться к списку рецептов" />;
   }
 
-  if (!recipe) {
+  if (isLoading || !recipe) {
     return (
       <div className={style.loaderContainer}>
         <Loader />
@@ -84,6 +63,6 @@ const Recipe = () => {
       </main>
     </article>
   );
-};
+});
 
 export default Recipe;

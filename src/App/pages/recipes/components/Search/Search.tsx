@@ -1,49 +1,24 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import SearchIcon from 'components/icons/SearchIcon';
-import MultiDropdown, { Option } from 'components/MultiDropdown';
-import mealCategoriesApi from 'api/mealCategories';
-import { useAddSearchParam } from 'utils/useAddSearchParams';
+import { useRecipeFilters } from 'store/recipeFiltersStore';
+import { CategoriesDropdown } from './CategoriesDropdown';
 
 import style from './Search.module.scss';
 
-const Search = () => {
-  const [allCategories, setAllCategories] = useState<Option[]>([]);
-
-  const [searchParams, addSearchParam] = useAddSearchParam();
-
-  const searchText = useMemo(() => searchParams.get('search') || '', [searchParams]);
-
-  const selectedCategories = useMemo(() => {
-    const selectedCategoryIds = searchParams.get('categoryIds')?.split(',') || [];
-
-    return allCategories.filter((category) => selectedCategoryIds.includes(category.key));
-  }, [allCategories, searchParams]);
-
-  const [localSearchText, setLocalSearchText] = useState(searchText);
+const Search = observer(() => {
+  const { searchText, handleSearch } = useRecipeFilters();
+  const [localSearchText, setLocalSearchText] = useState('');
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const categories = await mealCategoriesApi.getCategories();
-      setAllCategories(categories.data.map((category) => ({ key: category.id.toString(), value: category.title })));
-    };
+    setLocalSearchText(searchText);
+  }, [searchText]);
 
-    fetchCategories();
-  }, []);
-
-  const handleSearch = () => {
-    addSearchParam('search', localSearchText);
+  const handleSearchClick = () => {
+    handleSearch(localSearchText);
   };
-
-  const handleDropdownChange = useCallback((value: Option[]) => {
-    addSearchParam('categoryIds', value.map((category) => category.key.toString()).join(','));
-  }, []);
-
-  const handleDropdownGetTitle = useCallback((value: Option[]) => {
-    if (!selectedCategories.length) return 'Categories';
-    return value.map((category) => category.value).join(', ');
-  }, []);
 
   return (
     <section className={style.search}>
@@ -54,34 +29,18 @@ const Search = () => {
           onChange={(value: string) => setLocalSearchText(value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              handleSearch();
+              handleSearchClick();
             }
           }}
         />
-
-        <Button
-          className={style.searchButton}
-          onClick={handleSearch}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSearch();
-            }
-          }}
-        >
+        <Button className={style.searchButton} onClick={handleSearchClick}>
           <SearchIcon />
         </Button>
       </div>
 
-      <div className={style.categoriesDropdown}>
-        <MultiDropdown
-          options={allCategories}
-          value={selectedCategories}
-          onChange={handleDropdownChange}
-          getTitle={handleDropdownGetTitle}
-        />
-      </div>
+      <CategoriesDropdown className={style.categoriesDropdown} />
     </section>
   );
-};
+});
 
 export default Search;
