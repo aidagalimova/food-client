@@ -1,0 +1,56 @@
+.loaderContainer {
+  @include flex-container(column, center, center);
+
+  &:has(.l) {
+    width: 60px;
+    height: 60px;
+  }
+
+  &:has(.m) {
+    width: 48px;
+    height: 48px;
+  }
+
+  &:has(.s) {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-color: $loader-bg;
+  border-radius: 50%;
+  border-right-color: transparent;
+  transform: rotate(32deg);
+  animation: rotate 1s linear infinite;
+
+  &.l {
+    width: 40px;
+    height: 40px;
+    border-width: 5px;
+  }
+
+  &.m {
+    width: 32px;
+    height: 32px;
+    border-width: 4px;
+  }
+
+  &.s {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

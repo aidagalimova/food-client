@@ -1,0 +1,67 @@
+.container {
+  @include flex-container(row, flex-start, flex-start, 100px);
+
+  position: relative;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    top: $space-xs;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    background-color: $text-accent;
+  }
+
+  &::after {
+    top: $space-xs;
+    width: 1px;
+    height: 100%;
+  }
+
+  &::before {
+    top: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+  }
+}
+
+.listContainer {
+  @include flex-container(column, flex-start, flex-start, $space-xl);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-xxs;
+  width: 100%;
+  flex: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  @include flex-container(row, flex-start, center, $space-m);
+}
+
+@media (max-width: $screen-l) {
+  .list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: $screen-s) {
+  .container {
+    @include flex-container(column, flex-start, flex-start, $space-xxl);
+
+    padding: 0 $space-m;
+
+    &::after,
+    &::before {
+      display: none;
+    }
+  }
+}

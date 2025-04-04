@@ -1,0 +1,51 @@
+.inputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 52px;
+  padding: $space-m $space-xs;
+  background-color: $input-bg;
+  color: $input-text;
+  outline: none;
+  border: 1px solid $input-border;
+  border-radius: 10px;
+  font-weight: 400;
+
+  @include p-16;
+
+  &.withAfterSlot {
+    padding-right: $space-xxxl;
+  }
+
+  &:focus {
+    background-color: $input-bg-focus;
+    color: $input-text-focus;
+    border-color: $input-border-focus;
+  }
+
+  &:disabled {
+    background-color: $input-bg-disabled;
+    color: $input-text-disabled;
+    border-color: $input-border-disabled;
+  }
+
+  &::placeholder {
+    font-weight: 400;
+    color: $input-placeholder;
+    user-select: none;
+
+    @include p-16;
+  }
+}
+
+.afterSlot {
+  position: absolute;
+  height: fit-content;
+  right: $space-xs;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+}

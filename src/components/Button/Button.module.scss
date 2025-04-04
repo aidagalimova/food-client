@@ -1,0 +1,43 @@
+// Добавить миксины в эти компоненты
+.btn {
+  @include flex-container(row, center, center, $space-xxs, fit-content);
+
+  height: 52px;
+  padding: $space-s $space-l;
+  border-radius: 10px;
+  border: none;
+  background-color: $button-primary-bg;
+  transition: background-color 0.2s;
+
+  cursor: pointer;
+
+  &:disabled {
+    background-color: $button-primary-bg-disabled;
+    color: $button-primary-text-disabled;
+
+    cursor: default;
+  }
+
+  &:not(.loading):not(:disabled) {
+    &:hover {
+      background-color: $button-primary-bg-hover;
+      color: $button-primary-text-hover;
+    }
+
+    &:active {
+      background-color: $button-primary-bg-active;
+      color: $button-primary-text-active;
+    }
+  }
+
+  .text {
+    color: $button-primary-text;
+  }
+
+  .btnLoader {
+    div {
+      border-color: $button-primary-text;
+      border-right-color: transparent;
+    }
+  }
+}

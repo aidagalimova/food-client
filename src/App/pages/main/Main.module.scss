@@ -1,0 +1,9 @@
+.main {
+  @include flex-container(column, center, center);
+
+  height: 300px;
+}
+
+.link {
+  @include title;
+}

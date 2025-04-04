@@ -1,0 +1,26 @@
+.recipePage {
+  padding-top: $space-xxxl;
+  padding-bottom: $space-xxxl;
+
+  @include flex-container(column, flex-start, flex-start, $space-xxl);
+  @include page-container;
+  @include side-padding;
+}
+
+.recipeHeader {
+  @include flex-container(row, flex-start, center, $space-m);
+}
+
+.backLink {
+  @include flex-container(row, flex-start, center, 0, fit-content);
+}
+
+.recipeContent {
+  @include flex-container(column, flex-start, flex-start, $space-xxxl);
+}
+
+.loaderContainer {
+  @include flex-container(column, center, center);
+
+  padding: $space-xxxl;
+}

@@ -1,0 +1,9 @@
+.errorContainer {
+  @include flex-container(column, center, center, $space-xl);
+
+  padding: $space-xxxl;
+}
+
+.backLink {
+  margin-top: $space-l;
+}

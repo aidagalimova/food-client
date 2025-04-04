@@ -1,0 +1,5 @@
+.notFound {
+  @include flex-container(column, center, center, $space-xs);
+
+  height: 300px;
+}

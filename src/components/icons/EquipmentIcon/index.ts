@@ -1,0 +1,1 @@
+export { EquipmentIcon } from './EquipmentIcon';

@@ -1,0 +1,46 @@
+.card {
+  width: 360px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+.header {
+  height: 360px;
+  background-color: $card-image-bg;
+}
+
+.img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.content {
+  @include flex-container(column, space-between, flex-start);
+
+  height: 262px;
+  padding: $space-xl $space-xs;
+  background-color: $card-bg;
+
+  overflow: hidden;
+}
+
+.body {
+  @include flex-container(column, flex-start, flex-start, $space-xxs);
+}
+
+.footer {
+  @include flex-container(row, space-between, center);
+}
+
+@media (max-width: $screen-xl) {
+  .card {
+    width: 100%;
+
+    .img {
+      height: 100%;
+    }
+  }
+}

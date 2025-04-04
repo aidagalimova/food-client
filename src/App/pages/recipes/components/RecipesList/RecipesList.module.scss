@@ -1,0 +1,40 @@
+.recipesList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: space-between;
+  gap: $space-max;
+  width: 100%;
+}
+
+.captionSlot {
+  @include flex-container(row, flex-start, center, $space-min);
+}
+
+.loaderContainer {
+  @include flex-container(row, center, center, $space-m);
+
+  padding-bottom: $space-xxl;
+}
+
+.notFound {
+  align-self: center;
+  padding-bottom: $space-xxl;
+}
+
+@media (max-width: $screen-xl) {
+  .recipesList {
+    gap: $space-xxl;
+  }
+}
+
+@media (max-width: $screen-l) {
+  .recipesList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: $screen-s) {
+  .recipesList {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
