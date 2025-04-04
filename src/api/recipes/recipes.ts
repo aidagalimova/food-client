@@ -6,10 +6,25 @@ interface GetRecipesParams {
   pageSize?: number;
   searchText?: string;
   categoryIds?: string[];
+  rating?: number | null;
+  totalTime?: number | null;
+  cookingTime?: number | null;
+  preparationTime?: number | null;
+  vegetarian?: boolean | null;
 }
 
 const recipesApi = {
-  getRecipes: async ({ searchText, categoryIds, page = 1, pageSize = 9 }: GetRecipesParams = {}) => {
+  getRecipes: async ({
+    searchText,
+    categoryIds,
+    page = 1,
+    pageSize = 9,
+    rating = null,
+    totalTime = null,
+    cookingTime = null,
+    preparationTime = null,
+    vegetarian = null,
+  }: GetRecipesParams = {}) => {
     const response = await axiosApi.get<RecipeResponse>('recipes', {
       params: {
         populate: ['images', 'ingradients'],
@@ -26,6 +41,31 @@ const recipesApi = {
               $in: categoryIds,
             },
           },
+          ...(rating && {
+            rating: {
+              $gte: rating,
+            },
+          }),
+          ...(totalTime && {
+            totalTime: {
+              $lte: totalTime,
+            },
+          }),
+          ...(cookingTime && {
+            cookingTime: {
+              $lte: cookingTime,
+            },
+          }),
+          ...(preparationTime && {
+            preparationTime: {
+              $lte: preparationTime,
+            },
+          }),
+          ...(vegetarian && {
+            vegetarian: {
+              $eq: vegetarian,
+            },
+          }),
         },
       },
     });

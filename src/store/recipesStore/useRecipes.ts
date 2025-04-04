@@ -3,12 +3,14 @@ import { useRecipeFilters } from 'store/recipeFiltersStore';
 import recipesStore from './recipesStore';
 
 export const useRecipes = () => {
-  const { fetchRecipes, recipes, isLoading, error } = recipesStore;
-  const { searchText, selectedCategoryIdsStr, page } = useRecipeFilters();
+  const { recipes, isLoading, error, fetchRecipes } = recipesStore;
+
+  const { searchText, selectedCategoryIdsStr, page, rating, totalTime, cookingTime, preparationTime, vegetarian } =
+    useRecipeFilters();
 
   useEffect(() => {
     fetchRecipes();
-  }, [searchText, selectedCategoryIdsStr, page]);
+  }, [searchText, selectedCategoryIdsStr, page, rating, totalTime, cookingTime, preparationTime, vegetarian]);
 
   return {
     recipes,

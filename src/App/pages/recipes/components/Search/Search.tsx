@@ -3,14 +3,17 @@ import { observer } from 'mobx-react-lite';
 import Input from 'components/Input';
 import Button from 'components/Button';
 import SearchIcon from 'components/icons/SearchIcon';
+import { FilterIcon } from 'components/icons/FilterIcon';
 import { useRecipeFilters } from 'store/recipeFiltersStore';
 import { CategoriesDropdown } from './CategoriesDropdown';
+import { AdditionalFilters } from './AdditionalFilters';
 
 import style from './Search.module.scss';
 
 const Search = observer(() => {
   const { searchText, handleSearch } = useRecipeFilters();
   const [localSearchText, setLocalSearchText] = useState('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
     setLocalSearchText(searchText);
@@ -38,7 +41,12 @@ const Search = observer(() => {
         </Button>
       </div>
 
-      <CategoriesDropdown className={style.categoriesDropdown} />
+      <div className={style.filters}>
+        <CategoriesDropdown className={style.categoriesDropdown} />
+        <FilterIcon className={style.filterIcon} onClick={() => setIsFilterOpen(!isFilterOpen)} />
+      </div>
+
+      <AdditionalFilters isOpen={isFilterOpen} />
     </section>
   );
 });

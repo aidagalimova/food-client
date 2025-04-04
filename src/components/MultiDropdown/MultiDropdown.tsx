@@ -67,7 +67,7 @@ const MultiDropdown = ({ className, options, value, onChange, getTitle, disabled
     <div className={clsx(style.dropdownContainer, className)} ref={ref}>
       <Input
         placeholder={getTitle(value)}
-        value={searchValue ? searchValue : value.length ? getTitle(value) : ''}
+        value={searchValue ? searchValue : ''}
         onChange={(value) => setSearchValue(value)}
         afterSlot={
           <div

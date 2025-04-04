@@ -21,7 +21,7 @@ const Recipe = observer(() => {
   const { recipe, isLoading, error } = useRecipe(id);
 
   if (error) {
-    return <ErrorText error={error} link="/recipes" linkText="Вернуться к списку рецептов" />;
+    return <ErrorText error={error} link="/recipes" linkText="Back to recipes list" />;
   }
 
   if (isLoading || !recipe) {

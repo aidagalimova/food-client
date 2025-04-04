@@ -40,4 +40,23 @@
       border-right-color: transparent;
     }
   }
+  &.secondary {
+    background: none;
+
+    .text {
+      color: $button-secondary-text;
+    }
+
+    &:not(.loading):not(:disabled) {
+      &:hover {
+        background-color: $button-secondary-bg-hover;
+        color: $button-secondary-text-hover;
+      }
+
+      &:active {
+        background-color: $button-secondary-bg-active;
+        color: $button-secondary-text-active;
+      }
+    }
+  }
 }

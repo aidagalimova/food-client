@@ -23,6 +23,11 @@ class RecipesStore {
         categoryIds: recipeFiltersStore.selectedCategoryIds,
         page: recipeFiltersStore.page,
         pageSize: recipeFiltersStore.pageSize,
+        rating: recipeFiltersStore.rating,
+        totalTime: recipeFiltersStore.totalTime,
+        cookingTime: recipeFiltersStore.cookingTime,
+        preparationTime: recipeFiltersStore.preparationTime,
+        vegetarian: recipeFiltersStore.vegetarian,
       });
 
       runInAction(() => {

@@ -7,11 +7,21 @@ export enum FilterParams {
   Search = 'search',
   CategoryIds = 'categoryIds',
   Page = 'page',
+  Rating = 'rating',
+  TotalTime = 'totalTime',
+  CookingTime = 'cookingTime',
+  PreparationTime = 'preparationTime',
+  Vegetarian = 'vegetarian',
 }
 
 class RecipeFiltersStore {
   searchText: string = '';
   selectedCategoryIds: string[] = [];
+  rating: number | null = null;
+  vegetarian: boolean = false;
+  totalTime: number | null = null;
+  cookingTime: number | null = null;
+  preparationTime: number | null = null;
 
   pageSize = PAGE_SIZE;
   page = 1;
@@ -30,6 +40,26 @@ class RecipeFiltersStore {
     this.selectedCategoryIds = categoryIds;
   };
 
+  setRating = (rating: number | null) => {
+    this.rating = rating;
+  };
+
+  setTotalTime = (time: number | null) => {
+    this.totalTime = time;
+  };
+
+  setCookingTime = (time: number | null) => {
+    this.cookingTime = time;
+  };
+
+  setPreparationTime = (time: number | null) => {
+    this.preparationTime = time;
+  };
+
+  setVegetarian = (isVegetarian: boolean) => {
+    this.vegetarian = isVegetarian;
+  };
+
   setPage = (page: number) => {
     this.page = page;
   };
@@ -42,9 +72,16 @@ class RecipeFiltersStore {
   };
 
   syncWithUrl = (params: URLSearchParams) => {
-    this.searchText = params.get(FilterParams.Search) || '';
     this.page = Number(params.get(FilterParams.Page)) || 1;
+
+    this.searchText = params.get(FilterParams.Search) || '';
     this.selectedCategoryIds = params.get(FilterParams.CategoryIds)?.split(',') || [];
+
+    this.rating = Number(params.get(FilterParams.Rating)) || null;
+    this.totalTime = Number(params.get(FilterParams.TotalTime)) || null;
+    this.cookingTime = Number(params.get(FilterParams.CookingTime)) || null;
+    this.preparationTime = Number(params.get(FilterParams.PreparationTime)) || null;
+    this.vegetarian = !!params.get(FilterParams.Vegetarian);
   };
 
   get selectedCategoryIdsStr() {
