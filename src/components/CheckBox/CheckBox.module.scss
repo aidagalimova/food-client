@@ -13,10 +13,13 @@
   height: 100%;
   background-color: $checkbox-bg;
   border: 1px solid $checkbox-border;
+  border-radius: $border-radius;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-color: $checkbox-bg-hover;
     border-color: $checkbox-border-hover;
+    outline: none;
     cursor: pointer;
   }
 

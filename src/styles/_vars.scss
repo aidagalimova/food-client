@@ -22,6 +22,12 @@ $button-primary-text-disabled: #ffffff;
 $button-primary-bg-active: #872d01;
 $button-primary-text-active: #ffffff;
 
+$button-secondary-text: #3d3d3d;
+$button-secondary-bg-hover: rgba(255, 203, 176, 0.6);
+$button-secondary-text-hover: #000000;
+$button-secondary-bg-active: #ffdecd;
+$button-secondary-text-active: #000000;
+
 $text-primary: #000000;
 $text-secondary: #afadb5;
 $text-accent: #b5460f;
@@ -58,3 +64,4 @@ $screen-xl: 1400px;
 $screen-l: 1040px;
 $screen-m: 900px;
 $screen-s: 600px;
+$screen-xs: 400px;

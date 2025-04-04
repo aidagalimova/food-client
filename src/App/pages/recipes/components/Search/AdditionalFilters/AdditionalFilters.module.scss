@@ -1,0 +1,98 @@
+.container {
+  @include flex-container(column, flex-start, flex-start, 32px);
+  align-self: end;
+  padding: 24px 32px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: $border-radius;
+  user-select: none;
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.containerClosed {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: none;
+}
+
+.bodyContainer {
+  @include flex-container(row, space-between, flex-end, 48px);
+}
+
+.filtersContainer {
+  @include flex-container(column, flex-start, flex-start, 32px);
+  max-width: 600px;
+}
+
+.timesFilterGroup {
+  @include flex-container(row, flex-start, center, 16px);
+}
+
+.timeInput {
+  max-width: 200px;
+}
+
+.additionalFiltersContainer {
+  @include flex-container(row, space-between, flex-end, 48px);
+  padding-left: 12px;
+}
+
+.ratingFilterGroup {
+  @include flex-container(column, flex-start, flex-start, 16px);
+  max-width: 300px;
+  min-width: 230px;
+}
+
+.checkboxFilterGroup {
+  @include flex-container(row, flex-end, center, 12px);
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  width: fit-content;
+  justify-content: flex-end;
+}
+
+@media (max-width: $screen-l) {
+  .filtersContainer {
+    max-width: unset;
+  }
+}
+
+@media (max-width: $screen-m) {
+  .bodyContainer {
+    flex-direction: column;
+    gap: 32px;
+  }
+}
+
+@media (max-width: $screen-s) {
+  .container {
+    padding: 16px;
+  }
+  .additionalFiltersContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .ratingFilterGroup {
+    max-width: unset;
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .timesFilterGroup {
+    flex-direction: column;
+  }
+  .timeInput {
+    max-width: unset;
+  }
+}

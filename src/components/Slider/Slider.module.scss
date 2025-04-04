@@ -1,0 +1,50 @@
+.slider {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  user-select: none;
+}
+
+.container {
+  position: relative;
+  height: 4px;
+  background-color: $text-secondary;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.thumb {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: $text-accent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 0 4px rgba($text-accent, 0.1);
+  }
+}
+
+.progress {
+  position: absolute;
+  height: 100%;
+  background-color: $text-accent;
+  border-radius: 2px;
+}
+
+.markers {
+  position: relative;
+  height: 20px;
+  margin-top: 8px;
+  user-select: none;
+}
+
+.marker {
+  position: absolute;
+  transform: translateX(-50%);
+  top: 0;
+}

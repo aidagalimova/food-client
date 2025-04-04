@@ -7,12 +7,12 @@ const NotFound = () => {
   return (
     <div className={style.notFound}>
       <Text view={TextView.TITLE} weight={TextWeight.BOLD}>
-        404 - Страница не найдена
+        404 - Page Not Found
       </Text>
 
-      <Text view={TextView.P_16}>Запрашиваемая страница не существует.</Text>
+      <Text view={TextView.P_16}>The requested page does not exist.</Text>
 
-      <Link to="/recipes" name="Перейти к рецептам" decoration="underline" />
+      <Link to="/recipes" name="Go to recipes" decoration="underline" />
     </div>
   );
 };

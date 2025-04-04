@@ -9,7 +9,7 @@
 
 .optionsList {
   @include flex-container(column, flex-start, flex-start);
-
+  z-index: 99;
   position: absolute;
   left: 0;
   top: 60px;

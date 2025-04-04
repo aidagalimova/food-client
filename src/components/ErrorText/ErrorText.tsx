@@ -13,7 +13,7 @@ const ErrorText = ({ error, link, linkText }: ErrorTextProps) => {
   return (
     <div className={style.errorContainer}>
       <Text view={TextView.TITLE} weight={TextWeight.BOLD} tag={TextTag.H1}>
-        Ошибка
+        Error
       </Text>
       <Text view={TextView.P_20} tag={TextTag.P}>
         {error.status} {error.message}

@@ -6,6 +6,14 @@
   @include flex-container(row, flex-start, flex-start, $space-l);
 }
 
+.filters {
+  @include flex-container(row, flex-end, center, $space-l);
+}
+
+.filterIcon {
+  color: $text-accent;
+}
+
 .searchButton {
   display: block;
   width: 64px;
