@@ -11,7 +11,7 @@ import { AdditionalFilters } from './AdditionalFilters';
 import style from './Search.module.scss';
 
 const Search = observer(() => {
-  const { searchText, handleSearch } = useRecipeFilters();
+  const { searchText, setSearchText } = useRecipeFilters();
   const [localSearchText, setLocalSearchText] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -20,7 +20,7 @@ const Search = observer(() => {
   }, [searchText]);
 
   const handleSearchClick = () => {
-    handleSearch(localSearchText);
+    setSearchText(localSearchText);
   };
 
   return (

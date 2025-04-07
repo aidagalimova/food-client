@@ -1,19 +1,17 @@
-import { makeAutoObservable } from 'mobx';
+import { makeObservable, observable, action, computed, reaction, IReactionDisposer } from 'mobx';
 import { PaginationMeta } from 'api/types';
+import rootStore from 'store/rootStore/instance';
+import { FilterParams } from 'store/rootStore/queryParamsStore';
 
 const PAGE_SIZE = 9;
 
-export enum FilterParams {
-  Search = 'search',
-  CategoryIds = 'categoryIds',
-  Page = 'page',
-  Rating = 'rating',
-  TotalTime = 'totalTime',
-  CookingTime = 'cookingTime',
-  PreparationTime = 'preparationTime',
-  Vegetarian = 'vegetarian',
-}
-
+type AdditionalFilters = {
+  rating: number | null;
+  vegetarian: boolean;
+  totalTime: number | null;
+  cookingTime: number | null;
+  preparationTime: number | null;
+};
 class RecipeFiltersStore {
   searchText: string = '';
   selectedCategoryIds: string[] = [];
@@ -28,61 +26,182 @@ class RecipeFiltersStore {
   pageCount = 1;
   total = 1;
 
+  private disposers: IReactionDisposer[] = [];
+
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      searchText: observable,
+      selectedCategoryIds: observable.ref,
+      rating: observable,
+      vegetarian: observable,
+      totalTime: observable,
+      cookingTime: observable,
+      preparationTime: observable,
+      page: observable,
+      pageCount: observable,
+
+      setPaginationInfo: action.bound,
+      setSearchText: action.bound,
+      setSelectedCategories: action.bound,
+      setRating: action.bound,
+      setTotalTime: action.bound,
+      setCookingTime: action.bound,
+      setPreparationTime: action.bound,
+      setVegetarian: action.bound,
+      setPage: action.bound,
+      syncWithUrl: action.bound,
+      setAdditionalFilters: action.bound,
+      destroy: action.bound,
+
+      selectedCategoryIdsStr: computed,
+    });
+
+    this.disposers.push(
+      reaction(
+        () => this.page,
+        (newPage) => {
+          rootStore.query.setParam(FilterParams.Page, newPage.toString());
+        },
+      ),
+    );
+
+    this.disposers.push(
+      reaction(
+        () => this.searchText,
+        (newSearchText) => {
+          rootStore.query.setParam(FilterParams.Search, newSearchText);
+        },
+      ),
+    );
+
+    this.disposers.push(
+      reaction(
+        () => this.selectedCategoryIds,
+        (newSelectedCategoryIds) => {
+          rootStore.query.setParam(FilterParams.CategoryIds, newSelectedCategoryIds.join(','));
+        },
+      ),
+    );
+
+    this.disposers.push(
+      reaction(
+        () => this.rating,
+        (newRating) => {
+          rootStore.query.setParam(FilterParams.Rating, newRating?.toString());
+        },
+      ),
+    );
+
+    this.disposers.push(
+      reaction(
+        () => this.totalTime,
+        (newTotalTime) => {
+          rootStore.query.setParam(FilterParams.TotalTime, newTotalTime?.toString());
+        },
+      ),
+    );
+
+    this.disposers.push(
+      reaction(
+        () => this.cookingTime,
+        (newCookingTime) => {
+          rootStore.query.setParam(FilterParams.CookingTime, newCookingTime?.toString());
+        },
+      ),
+    );
+
+    this.disposers.push(
+      reaction(
+        () => this.preparationTime,
+        (newPreparationTime) => {
+          rootStore.query.setParam(FilterParams.PreparationTime, newPreparationTime?.toString());
+        },
+      ),
+    );
+
+    this.disposers.push(
+      reaction(
+        () => this.vegetarian,
+        (isVegetarian) => {
+          rootStore.query.setParam(FilterParams.Vegetarian, isVegetarian ? 'true' : '');
+        },
+      ),
+    );
   }
 
-  setSearchText = (text: string) => {
+  destroy() {
+    this.disposers.forEach((dispose) => dispose());
+    this.disposers = [];
+  }
+
+  setSearchText(text: string) {
     this.searchText = text;
-  };
+    this.resetPage();
+  }
 
-  setSelectedCategories = (categoryIds: string[]) => {
+  setSelectedCategories(categoryIds: string[]) {
     this.selectedCategoryIds = categoryIds;
-  };
+    this.resetPage();
+  }
 
-  setRating = (rating: number | null) => {
+  setRating(rating: number | null) {
     this.rating = rating;
-  };
+    this.resetPage();
+  }
 
-  setTotalTime = (time: number | null) => {
+  setTotalTime(time: number | null) {
     this.totalTime = time;
-  };
+    this.resetPage();
+  }
 
-  setCookingTime = (time: number | null) => {
+  setCookingTime(time: number | null) {
     this.cookingTime = time;
-  };
+    this.resetPage();
+  }
 
-  setPreparationTime = (time: number | null) => {
+  setPreparationTime(time: number | null) {
     this.preparationTime = time;
-  };
+    this.resetPage();
+  }
 
-  setVegetarian = (isVegetarian: boolean) => {
+  setVegetarian(isVegetarian: boolean) {
     this.vegetarian = isVegetarian;
-  };
+    this.resetPage();
+  }
 
-  setPage = (page: number) => {
+  setPage(page: number) {
     this.page = page;
-  };
+  }
 
-  setPaginationInfo = (paginationInfo: PaginationMeta) => {
+  resetPage() {
+    this.setPage(1);
+  }
+
+  setPaginationInfo(paginationInfo: PaginationMeta) {
     this.pageCount = paginationInfo.pageCount;
     this.total = paginationInfo.total;
     this.pageSize = paginationInfo.pageSize;
     this.pageCount = paginationInfo.pageCount;
-  };
+  }
 
-  syncWithUrl = (params: URLSearchParams) => {
-    this.page = Number(params.get(FilterParams.Page)) || 1;
+  setAdditionalFilters(additionalFilters: AdditionalFilters) {
+    this.setRating(additionalFilters.rating);
+    this.setTotalTime(additionalFilters.totalTime);
+    this.setCookingTime(additionalFilters.cookingTime);
+    this.setPreparationTime(additionalFilters.preparationTime);
+    this.setVegetarian(additionalFilters.vegetarian);
+  }
 
-    this.searchText = params.get(FilterParams.Search) || '';
-    this.selectedCategoryIds = params.get(FilterParams.CategoryIds)?.split(',') || [];
-
-    this.rating = Number(params.get(FilterParams.Rating)) || null;
-    this.totalTime = Number(params.get(FilterParams.TotalTime)) || null;
-    this.cookingTime = Number(params.get(FilterParams.CookingTime)) || null;
-    this.preparationTime = Number(params.get(FilterParams.PreparationTime)) || null;
-    this.vegetarian = !!params.get(FilterParams.Vegetarian);
-  };
+  syncWithUrl() {
+    this.page = Number(rootStore.query.getParam(FilterParams.Page)) || 1;
+    this.searchText = rootStore.query.getParam(FilterParams.Search)?.toString() || '';
+    this.selectedCategoryIds = rootStore.query.getParam(FilterParams.CategoryIds)?.toString().split(',') || [];
+    this.rating = Number(rootStore.query.getParam(FilterParams.Rating)) || null;
+    this.totalTime = Number(rootStore.query.getParam(FilterParams.TotalTime)) || null;
+    this.cookingTime = Number(rootStore.query.getParam(FilterParams.CookingTime)) || null;
+    this.preparationTime = Number(rootStore.query.getParam(FilterParams.PreparationTime)) || null;
+    this.vegetarian = !!rootStore.query.getParam(FilterParams.Vegetarian);
+  }
 
   get selectedCategoryIdsStr() {
     return this.selectedCategoryIds.join(',');

@@ -10,7 +10,7 @@ type CategoriesDropdownProps = {
 
 export const CategoriesDropdown = observer(({ className }: CategoriesDropdownProps) => {
   const { categoryOptions } = useMealCategories();
-  const { selectedCategoryIds, handleCategoryChange } = useRecipeFilters();
+  const { selectedCategoryIds, setSelectedCategories } = useRecipeFilters();
 
   const selectedCategories = useMemo(() => {
     if (!selectedCategoryIds) return [];
@@ -19,9 +19,9 @@ export const CategoriesDropdown = observer(({ className }: CategoriesDropdownPro
 
   const handleDropdownChange = useCallback(
     (value: Option[]) => {
-      handleCategoryChange(value.map((option) => option.key));
+      setSelectedCategories(value.map((option) => option.key));
     },
-    [handleCategoryChange],
+    [setSelectedCategories],
   );
 
   const handleDropdownGetTitle = useCallback((value: Option[]) => {

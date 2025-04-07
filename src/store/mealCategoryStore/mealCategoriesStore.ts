@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { runInAction, makeObservable, observable, action, computed } from 'mobx';
 import mealCategoriesApi, { Category } from 'api/mealCategories';
 import type { ApiError } from 'api/types';
 import type { Option } from 'components/MultiDropdown';
@@ -10,12 +10,22 @@ class MealCategoriesStore {
   error: ApiError | null = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      categories: observable.ref,
+      isLoading: observable,
+      error: observable,
+
+      fetchCategories: action.bound,
+
+      categoryOptions: computed,
+    });
   }
 
-  fetchCategories = async () => {
-    this.isLoading = true;
-    this.error = null;
+  async fetchCategories() {
+    runInAction(() => {
+      this.isLoading = true;
+      this.error = null;
+    });
 
     try {
       const response = await mealCategoriesApi.getCategories();
@@ -29,7 +39,7 @@ class MealCategoriesStore {
         this.isLoading = false;
       });
     }
-  };
+  }
 
   get categoryOptions(): Option[] {
     return this.categories.map((category) => ({

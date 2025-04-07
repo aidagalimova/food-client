@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import clsx from 'clsx';
 import Input from 'components/Input';
@@ -15,8 +15,7 @@ type AdditionalFiltersProps = {
 };
 
 export const AdditionalFilters = observer(({ isOpen }: AdditionalFiltersProps) => {
-  const { rating, totalTime, cookingTime, preparationTime, vegetarian, handleAdditionalFiltersChange } =
-    useRecipeFilters();
+  const { rating, totalTime, cookingTime, preparationTime, vegetarian, setAdditionalFilters } = useRecipeFilters();
 
   const [localRating, setLocalRating] = useState<number | null>(null);
   const [localTotalTime, setLocalTotalTime] = useState<number | null>(null);
@@ -33,21 +32,14 @@ export const AdditionalFilters = observer(({ isOpen }: AdditionalFiltersProps) =
   }, [rating, totalTime, cookingTime, preparationTime, vegetarian]);
 
   const applyFilters = useCallback(() => {
-    handleAdditionalFiltersChange({
+    setAdditionalFilters({
       rating: localRating,
       totalTime: localTotalTime,
       cookingTime: localCookingTime,
       preparationTime: localPreparationTime,
       vegetarian: localVegetarian,
     });
-  }, [
-    localRating,
-    localTotalTime,
-    localCookingTime,
-    localPreparationTime,
-    localVegetarian,
-    handleAdditionalFiltersChange,
-  ]);
+  }, [localRating, localTotalTime, localCookingTime, localPreparationTime, localVegetarian, setAdditionalFilters]);
 
   const clearFilters = useCallback(() => {
     setLocalRating(MIN_RATING);
@@ -56,17 +48,21 @@ export const AdditionalFilters = observer(({ isOpen }: AdditionalFiltersProps) =
     setLocalPreparationTime(null);
     setLocalVegetarian(false);
 
-    handleAdditionalFiltersChange({
+    setAdditionalFilters({
       rating: MIN_RATING,
       vegetarian: false,
       totalTime: null,
       cookingTime: null,
       preparationTime: null,
     });
-  }, [handleAdditionalFiltersChange]);
+  }, [setAdditionalFilters]);
+
+  const isFiltersDisplay = useMemo(() => {
+    return isOpen || rating || totalTime || cookingTime || preparationTime || vegetarian;
+  }, [isOpen, rating, totalTime, cookingTime, preparationTime, vegetarian]);
 
   return (
-    <div className={clsx(style.container, { [style.containerClosed]: !isOpen })}>
+    <div className={clsx(style.container, { [style.containerClosed]: !isFiltersDisplay })}>
       <Text view={TextView.P_20} weight={TextWeight.BOLD}>
         Filters
       </Text>
@@ -125,7 +121,7 @@ export const AdditionalFilters = observer(({ isOpen }: AdditionalFiltersProps) =
               <Slider
                 min={MIN_RATING}
                 max={MAX_RATING}
-                value={localRating ?? undefined}
+                value={localRating}
                 onChange={(value) => setLocalRating(value)}
               />
             </div>

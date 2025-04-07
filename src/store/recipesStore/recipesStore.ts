@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { action, makeObservable, observable, runInAction } from 'mobx';
 import recipesApi, { Recipe } from 'api/recipes';
 import type { ApiError } from 'api/types';
 import { recipeFiltersStore } from 'store/recipeFiltersStore';
@@ -10,12 +10,20 @@ class RecipesStore {
   error: ApiError | null = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      recipes: observable.ref,
+      isLoading: observable,
+      error: observable,
+
+      fetchRecipes: action.bound,
+    });
   }
 
-  fetchRecipes = async () => {
-    this.isLoading = true;
-    this.error = null;
+  async fetchRecipes() {
+    runInAction(() => {
+      this.isLoading = true;
+      this.error = null;
+    });
 
     try {
       const response = await recipesApi.getRecipes({
@@ -41,7 +49,7 @@ class RecipesStore {
         this.isLoading = false;
       });
     }
-  };
+  }
 }
 
 export default new RecipesStore();

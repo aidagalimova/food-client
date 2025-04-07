@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { makeAutoObservable, runInAction } from 'mobx';
+import { action, makeObservable, observable, runInAction } from 'mobx';
 import recipesApi, { FullRecipe } from 'api/recipes';
 import type { ApiError } from 'api/types';
 
@@ -9,12 +9,21 @@ class RecipeStore {
   error: ApiError | null = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      recipe: observable.ref,
+      isLoading: observable,
+      error: observable,
+
+      fetchRecipeById: action.bound,
+      clearSelectedRecipe: action.bound,
+    });
   }
 
-  fetchRecipeById = async (id: string) => {
-    this.isLoading = true;
-    this.error = null;
+  async fetchRecipeById(id: string) {
+    runInAction(() => {
+      this.isLoading = true;
+      this.error = null;
+    });
 
     try {
       const response = await recipesApi.getRecipeById(id);
@@ -31,11 +40,11 @@ class RecipeStore {
         this.isLoading = false;
       });
     }
-  };
+  }
 
-  clearSelectedRecipe = () => {
+  clearSelectedRecipe() {
     this.recipe = null;
-  };
+  }
 }
 
 export default new RecipeStore();

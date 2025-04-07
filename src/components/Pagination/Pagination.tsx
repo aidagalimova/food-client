@@ -23,14 +23,12 @@ const PaginationButton = ({ pageNumber, onPageChange, isActive }: PaginationButt
 };
 
 const Pagination = () => {
-  const { page, pageCount, handlePageChange } = useRecipeFilters();
+  const { page, pageCount, setPage } = useRecipeFilters();
 
   const renderPageNumbers = useMemo(() => {
     const pages = [];
     // Первая страница
-    pages.push(
-      <PaginationButton key={1} pageNumber={1} onPageChange={() => handlePageChange(1)} isActive={page === 1} />,
-    );
+    pages.push(<PaginationButton key={1} pageNumber={1} onPageChange={() => setPage(1)} isActive={page === 1} />);
 
     // Многоточие в начале
     if (page > 3) {
@@ -43,9 +41,7 @@ const Pagination = () => {
 
     // Страницы вокруг текущей
     for (let i = Math.max(2, page - 1); i <= Math.min(pageCount - 1, page + 1); i++) {
-      pages.push(
-        <PaginationButton key={i} pageNumber={i} onPageChange={() => handlePageChange(i)} isActive={page === i} />,
-      );
+      pages.push(<PaginationButton key={i} pageNumber={i} onPageChange={() => setPage(i)} isActive={page === i} />);
     }
 
     // Многоточие в конце
@@ -63,18 +59,18 @@ const Pagination = () => {
         <PaginationButton
           key={pageCount}
           pageNumber={pageCount}
-          onPageChange={() => handlePageChange(pageCount)}
+          onPageChange={() => setPage(pageCount)}
           isActive={page === pageCount}
         />,
       );
     }
 
     return pages;
-  }, [page, pageCount, handlePageChange]);
+  }, [page, pageCount, setPage]);
 
   return (
     <div className={style.pagination}>
-      <button disabled={page === 1} onClick={() => handlePageChange(page - 1)} className={clsx(style.arrowButton)}>
+      <button disabled={page === 1} onClick={() => setPage(page - 1)} className={clsx(style.arrowButton)}>
         <ArrowLeftIcon />
       </button>
 
@@ -82,7 +78,7 @@ const Pagination = () => {
 
       <button
         disabled={page === pageCount}
-        onClick={() => handlePageChange(page + 1)}
+        onClick={() => setPage(page + 1)}
         className={clsx(style.arrowButton, style.rightArrow)}
       >
         <ArrowLeftIcon />
