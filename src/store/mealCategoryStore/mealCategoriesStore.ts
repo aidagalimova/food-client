@@ -13,7 +13,7 @@ class MealCategoriesStore {
     makeObservable(this, {
       categories: observable.ref,
       isLoading: observable,
-      error: observable,
+      error: observable.ref,
 
       fetchCategories: action.bound,
 

@@ -12,7 +12,7 @@ class RecipeStore {
     makeObservable(this, {
       recipe: observable.ref,
       isLoading: observable,
-      error: observable,
+      error: observable.ref,
 
       fetchRecipeById: action.bound,
       clearSelectedRecipe: action.bound,
