@@ -1,67 +1,22 @@
-import { useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
 import Card from 'components/Card';
-import Text, { TextView } from 'components/Text';
 import Loader from 'components/Loader';
-import Button from 'components/Button';
+import Text, { TextView } from 'components/Text';
 import TimeIcon from 'components/icons/TimeIcon';
 import { IconColor } from 'components/icons/Icon';
+import Button from 'components/Button';
 import ErrorText from 'components/ErrorText';
 import Pagination from 'components/Pagination';
-import { ApiError, PaginationMeta } from 'api/types';
-import recipesApi, { Recipe } from 'api/recipes';
-import { useAddSearchParam } from 'utils/useAddSearchParams';
+import { useRecipes } from 'store/recipesStore';
 
 import style from './RecipesList.module.scss';
 
-const RecipesList = () => {
+const RecipesList = observer(() => {
   const navigate = useNavigate();
+  const { recipes, isLoading, error } = useRecipes();
 
-  const [recipes, setRecipes] = useState<Recipe[] | null>(null);
-  const [error, setError] = useState<ApiError | null>(null);
-
-  const [paginationInfo, setPaginationInfo] = useState<PaginationMeta | null>(null);
-
-  const [searchParams, addSearchParam] = useAddSearchParam();
-  const currentPage = Number(searchParams.get('page') || 1);
-  const searchText = searchParams.get('search') || '';
-  const categoryIds = searchParams.get('categoryIds') || '';
-
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await recipesApi.getRecipes({
-          searchText,
-          categoryIds: categoryIds ? categoryIds.split(',') : [],
-          page: currentPage,
-        });
-
-        setRecipes(response.data);
-        setPaginationInfo(response.meta.pagination);
-      } catch (err) {
-        if (err instanceof AxiosError) {
-          setError(err.response?.data.error);
-        }
-      }
-    };
-
-    fetchRecipes();
-  }, [searchText, categoryIds, currentPage]);
-
-  useEffect(() => {
-    handlePageChange();
-  }, [searchText, categoryIds]);
-
-  const handlePageChange = (page = 1) => {
-    addSearchParam('page', page.toString());
-  };
-
-  if (error) {
-    return <ErrorText error={error} />;
-  }
-
-  if (!recipes) {
+  if (isLoading) {
     return (
       <div className={style.loaderContainer}>
         <Loader />
@@ -69,10 +24,14 @@ const RecipesList = () => {
     );
   }
 
+  if (error) {
+    return <ErrorText error={error} />;
+  }
+
   if (!recipes.length) {
     return (
       <Text view={TextView.P_20} className={style.notFound} nonSelectable>
-        Ничего не найдено
+        No recipes found
       </Text>
     );
   }
@@ -102,15 +61,9 @@ const RecipesList = () => {
         })}
       </section>
 
-      {recipes?.length > 0 && paginationInfo && (
-        <Pagination
-          totalPages={paginationInfo?.pageCount}
-          currentPage={paginationInfo?.page}
-          onPageChange={handlePageChange}
-        />
-      )}
+      {recipes.length > 0 && <Pagination />}
     </>
   );
-};
+});
 
 export default RecipesList;

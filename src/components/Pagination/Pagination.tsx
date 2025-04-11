@@ -1,16 +1,12 @@
-import { FC, useMemo } from 'react';
+import { useMemo } from 'react';
+import { observer } from 'mobx-react-lite';
 import clsx from 'clsx';
 import Text, { TextView } from 'components/Text';
 import ArrowLeftIcon from 'components//icons/ArrowLeftIcon';
 import Button from 'components/Button';
+import { useRecipeFilters } from 'store/recipeFiltersStore';
 
 import style from './Pagination.module.scss';
-
-type PaginationProps = {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-};
 
 type PaginationButtonProps = {
   pageNumber: number;
@@ -26,15 +22,16 @@ const PaginationButton = ({ pageNumber, onPageChange, isActive }: PaginationButt
   );
 };
 
-const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = () => {
+  const { page, pageCount, setPage } = useRecipeFilters();
+
   const renderPageNumbers = useMemo(() => {
     const pages = [];
-
     // Первая страница
-    pages.push(<PaginationButton key={1} pageNumber={1} onPageChange={onPageChange} isActive={currentPage === 1} />);
+    pages.push(<PaginationButton key={1} pageNumber={1} onPageChange={() => setPage(1)} isActive={page === 1} />);
 
     // Многоточие в начале
-    if (currentPage > 3) {
+    if (page > 3) {
       pages.push(
         <Text key={2} view={TextView.P_18} nonSelectable>
           ...
@@ -43,49 +40,45 @@ const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPageChange
     }
 
     // Страницы вокруг текущей
-    for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
-      pages.push(<PaginationButton key={i} pageNumber={i} onPageChange={onPageChange} isActive={currentPage === i} />);
+    for (let i = Math.max(2, page - 1); i <= Math.min(pageCount - 1, page + 1); i++) {
+      pages.push(<PaginationButton key={i} pageNumber={i} onPageChange={() => setPage(i)} isActive={page === i} />);
     }
 
     // Многоточие в конце
-    if (currentPage < totalPages - 2) {
+    if (page < pageCount - 2) {
       pages.push(
-        <Text key={totalPages - 1} view={TextView.P_18} nonSelectable>
+        <Text key={pageCount - 1} view={TextView.P_18} nonSelectable>
           ...
         </Text>,
       );
     }
 
     // Последняя страница
-    if (totalPages > 1) {
+    if (pageCount > 1) {
       pages.push(
         <PaginationButton
-          key={totalPages}
-          pageNumber={totalPages}
-          onPageChange={onPageChange}
-          isActive={currentPage === totalPages}
+          key={pageCount}
+          pageNumber={pageCount}
+          onPageChange={() => setPage(pageCount)}
+          isActive={page === pageCount}
         />,
       );
     }
 
     return pages;
-  }, [currentPage, totalPages, onPageChange]);
+  }, [page, pageCount, setPage]);
 
   return (
     <div className={style.pagination}>
-      <button
-        disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
-        className={clsx(style.arrowButton)}
-      >
+      <button disabled={page === 1} onClick={() => setPage(page - 1)} className={clsx(style.arrowButton)}>
         <ArrowLeftIcon />
       </button>
 
       <div className={style.pageNumbersContainer}>{renderPageNumbers}</div>
 
       <button
-        disabled={currentPage === totalPages}
-        onClick={() => onPageChange(currentPage + 1)}
+        disabled={page === pageCount}
+        onClick={() => setPage(page + 1)}
         className={clsx(style.arrowButton, style.rightArrow)}
       >
         <ArrowLeftIcon />
@@ -94,4 +87,4 @@ const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onPageChange
   );
 };
 
-export default Pagination;
+export default observer(Pagination);

@@ -16,7 +16,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({ checked, onChange, className, ...pr
     <div className={clsx(style.checkboxContainer, className)}>
       {checked && (
         <Icon className={style.icon} width="40" height="40" fill="none">
-          <path d="M6.66663 19.3548L16.4625 30L33.3333 11.6667" stroke="currentColor" stroke-width="3.33333" />
+          <path d="M6.66663 19.3548L16.4625 30L33.3333 11.6667" stroke="currentColor" strokeWidth="3.33333" />
         </Icon>
       )}
 

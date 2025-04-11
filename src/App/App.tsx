@@ -6,8 +6,11 @@ import NotFound from './pages/notFound';
 import Main from './pages/main';
 
 import style from './App.module.scss';
+import { useQueryParamsStoreInit } from 'store/rootStore/queryParamsStore';
 
 function App() {
+  useQueryParamsStoreInit();
+
   return (
     <>
       <Header />

@@ -1,0 +1,69 @@
+.container {
+  width: 100%;
+}
+.rangeInput {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+
+  &::-webkit-slider-runnable-track {
+    background-color: $text-secondary;
+    height: 4px;
+    border-radius: 2px;
+  }
+  &::-moz-range-track {
+    background-color: $text-secondary;
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    margin-top: -4px;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    background-color: $text-accent;
+  }
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    outline: none;
+    border: none;
+    background-color: $text-accent;
+  }
+
+  &:hover {
+    &::-moz-range-thumb {
+      box-shadow: 0 0 0 4px rgba($text-accent, 0.1);
+    }
+
+    &::-webkit-slider-thumb {
+      box-shadow: 0 0 0 4px rgba($text-accent, 0.1);
+    }
+  }
+}
+
+.markers {
+  position: relative;
+  height: 20px;
+  margin-top: 8px;
+  margin-right: 4px;
+  user-select: none;
+}
+
+.marker {
+  position: absolute;
+  transform: translateX(-50%);
+  top: 0;
+}

@@ -37,8 +37,10 @@
 }
 
 @media (max-width: $screen-m) {
-  .navigation {
-    display: none;
+  .leftSide {
+    .navigation {
+      display: none;
+    }
   }
 
   .rightSideIcons {

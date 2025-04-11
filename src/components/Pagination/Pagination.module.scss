@@ -16,18 +16,17 @@
   user-select: none;
   cursor: pointer;
 
-  p {
-    color: $text-primary;
-  }
-
   &:hover {
     background-color: rgba(181, 70, 15, 0.1);
   }
 
   &.active {
     background-color: #b5460f;
+  }
+
+  &:not(.active) {
     p {
-      color: white;
+      color: $text-primary;
     }
   }
 }
