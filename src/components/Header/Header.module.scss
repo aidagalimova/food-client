@@ -32,8 +32,36 @@
   @include flex-container(row, flex-start, center, $space-m, unset);
 }
 
+.profileMenuWrapper {
+  position: relative;
+  display: flex;
+}
+
+.profileMenu {
+  position: absolute;
+  padding: $space-xs 0;
+  top: 32px;
+  right: 0;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: $shadow;
+}
+
+.profileMenuItem {
+  padding: $space-s $space-xxl;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 192, 118, 0.13);
+  }
+}
+
 .rightSideMenu {
   display: none;
+}
+
+.mobileMenuIcons {
+  @include flex-container(row, flex-start, center, $space-m, unset);
 }
 
 @media (max-width: $screen-m) {
@@ -43,13 +71,9 @@
     }
   }
 
-  .rightSideIcons {
-    display: none;
-  }
-
   .rightSideMenu {
     @include flex-container(row, center, center, 0, fit-content);
-
+    padding-left: $space-xl;
     position: relative;
     z-index: 101;
   }

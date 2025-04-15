@@ -8,6 +8,13 @@ export const axiosApi = axios.create({
   },
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${process.env.TOKEN}`,
   },
+});
+
+axiosApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem('jwt');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
 });
