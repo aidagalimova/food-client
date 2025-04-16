@@ -1,3 +1,5 @@
+import { UserProfileResponse } from 'api/profile';
+
 export interface RegisterRequest {
   username: string;
   email: string;
@@ -11,14 +13,5 @@ export interface LoginRequest {
 
 export interface AuthResponse {
   jwt: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    provider: string;
-    confirmed: boolean;
-    blocked: boolean;
-    createdAt: string;
-    updatedAt: string;
-  };
+  user: UserProfileResponse;
 }

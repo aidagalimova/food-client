@@ -15,11 +15,14 @@ import { useClickOutside } from 'utils/useClickOutside';
 
 import { links } from './Header.const';
 import style from './Header.module.scss';
+import { useProfile } from 'store/rootStore/profileStore';
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, handleLogout } = useAuth();
+
+  const { profile } = useProfile();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -73,7 +76,7 @@ const Header = () => {
               {isProfileMenuOpen && (
                 <div className={style.profileMenu}>
                   <div className={style.profileMenuItem} onClick={() => navigate('/profile')}>
-                    <Text view={TextView.P_16}>Profile</Text>
+                    <Text view={TextView.P_16}>My Profile ({profile?.username})</Text>
                   </div>
                   <div className={style.profileMenuItem} onClick={handleSignOut}>
                     <Text view={TextView.P_16}>Logout</Text>

@@ -7,6 +7,7 @@ const LazyRecipe = React.lazy(() => import('../pages/recipe'));
 const LazyNotFound = React.lazy(() => import('../pages/notFound'));
 const LazyMain = React.lazy(() => import('../pages/main'));
 const LazyAuth = React.lazy(() => import('../pages/auth/Auth'));
+const LazyProfile = React.lazy(() => import('../pages/profile/Profile'));
 
 const Routes = () => {
   return (
@@ -26,6 +27,15 @@ const Routes = () => {
         element={
           <PrivateRoute>
             <LazyRecipe />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <LazyProfile />
           </PrivateRoute>
         }
       />

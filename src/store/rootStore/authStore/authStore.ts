@@ -3,6 +3,7 @@ import { AxiosError } from 'axios';
 import { auth } from 'api/auth';
 import type { ApiError } from 'api/types';
 import type { LoginData, RegisterData } from './types';
+import rootStore from '../instance';
 
 type PrivateFields = '_token';
 
@@ -49,6 +50,7 @@ export class AuthStore {
   logout() {
     this._token = null;
     this.error = null;
+    rootStore.profile.clearProfile();
   }
 
   async login(data: LoginData): Promise<boolean> {
@@ -61,6 +63,7 @@ export class AuthStore {
       const response = await auth.login(data);
       runInAction(() => {
         this._token = response.jwt;
+        rootStore.profile.setProfile(response.user);
       });
       return true;
     } catch (error) {
@@ -85,6 +88,7 @@ export class AuthStore {
       const response = await auth.register(data);
       runInAction(() => {
         this._token = response.jwt;
+        rootStore.profile.setProfile(response.user);
       });
       return true;
     } catch (error) {
