@@ -1,13 +1,25 @@
+import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import Text, { TextColor, TextTag, TextView, TextWeight } from 'components/Text';
+import Text, { TextColor, TextTag, TextView } from 'components/Text';
 import AvatarIcon from 'components/icons/AvatarIcon';
 import PageLoader from 'components/PageLoader';
+import Button from 'components/Button';
 import { useProfile } from 'store/rootStore/profileStore';
+import ChangePasswordModal from './components/ChangePasswordModal/ChangePasswordModal';
 
 import style from './Profile.module.scss';
 
 const Profile = observer(() => {
   const { profile, isLoading, error } = useProfile();
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+
+  const handleOpenChangePassword = () => {
+    setIsChangePasswordOpen(true);
+  };
+
+  const handleCloseChangePassword = () => {
+    setIsChangePasswordOpen(false);
+  };
 
   if (isLoading) {
     return <PageLoader />;
@@ -60,28 +72,19 @@ const Profile = observer(() => {
               <Text tag={TextTag.P} view={TextView.P_14} color={TextColor.SECONDARY}>
                 Created at: {profile.createdAt.toLocaleDateString()}
               </Text>
-            </div>
-          </div>
-          <div className={style.stats}>
-            <div className={style.statItem}>
-              <Text tag={TextTag.SPAN} view={TextView.P_16} color={TextColor.SECONDARY}>
-                Recipes Created
-              </Text>
-              <Text tag={TextTag.SPAN} view={TextView.P_18} weight={TextWeight.BOLD}>
-                0
-              </Text>
-            </div>
-            <div className={style.statItem}>
-              <Text tag={TextTag.SPAN} view={TextView.P_16} color={TextColor.SECONDARY}>
-                Favorite Recipes
-              </Text>
-              <Text tag={TextTag.SPAN} view={TextView.P_18} weight={TextWeight.BOLD}>
-                0
-              </Text>
+              <Button onClick={handleOpenChangePassword} className={style.changePasswordButton}>
+                Change Password
+              </Button>
             </div>
           </div>
         </div>
       </div>
+
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={handleCloseChangePassword}
+        onSuccess={handleCloseChangePassword}
+      />
     </div>
   );
 });

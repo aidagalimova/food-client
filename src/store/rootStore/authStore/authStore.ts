@@ -2,7 +2,7 @@ import { makeObservable, observable, action, runInAction, computed, reaction } f
 import { AxiosError } from 'axios';
 import { auth } from 'api/auth';
 import type { ApiError } from 'api/types';
-import type { LoginData, RegisterData } from './types';
+import type { ChangePasswordData, LoginData, RegisterData } from './types';
 import rootStore from '../instance';
 
 type PrivateFields = '_token';
@@ -25,6 +25,7 @@ export class AuthStore {
       register: action.bound,
       clearError: action.bound,
       logout: action.bound,
+      changePassword: action.bound,
     });
 
     this.disposer = reaction(
@@ -86,6 +87,31 @@ export class AuthStore {
 
     try {
       const response = await auth.register(data);
+      runInAction(() => {
+        this._token = response.jwt;
+        rootStore.profile.setProfile(response.user);
+      });
+      return true;
+    } catch (error) {
+      runInAction(() => {
+        this.error = error instanceof AxiosError && error.response?.data.error;
+      });
+      return false;
+    } finally {
+      runInAction(() => {
+        this.isLoading = false;
+      });
+    }
+  }
+
+  async changePassword(data: ChangePasswordData): Promise<boolean> {
+    runInAction(() => {
+      this.error = null;
+      this.isLoading = true;
+    });
+
+    try {
+      const response = await auth.changePassword(data);
       runInAction(() => {
         this._token = response.jwt;
         rootStore.profile.setProfile(response.user);

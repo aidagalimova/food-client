@@ -1,7 +1,7 @@
 import { axiosApi } from '../api';
 import type { RecipeResponse, SingleRecipeResponse } from './types';
 
-interface GetRecipesParams {
+type GetRecipesParams = {
   page?: number;
   pageSize?: number;
   searchText?: string;
@@ -11,7 +11,7 @@ interface GetRecipesParams {
   cookingTime?: number | null;
   preparationTime?: number | null;
   vegetarian?: boolean | null;
-}
+};
 
 const recipesApi = {
   getRecipes: async ({

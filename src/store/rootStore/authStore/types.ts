@@ -15,3 +15,9 @@ export interface RegisterData {
   password: string;
   username: string;
 }
+
+export interface ChangePasswordData {
+  currentPassword: string;
+  password: string;
+  passwordConfirmation: string;
+}

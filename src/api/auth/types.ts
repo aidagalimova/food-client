@@ -15,3 +15,9 @@ export interface AuthResponse {
   jwt: string;
   user: UserProfileResponse;
 }
+
+export interface ChangePasswordRequest {
+  currentPassword: string;
+  password: string;
+  passwordConfirmation: string;
+}
