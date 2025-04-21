@@ -2,9 +2,3 @@
   min-height: calc(100dvh - 64px);
   margin: 64px auto 0;
 }
-
-.loaderContainer {
-  @include flex-container(column, center, center);
-
-  padding: $space-xxxl;
-}

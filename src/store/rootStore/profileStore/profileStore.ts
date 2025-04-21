@@ -3,7 +3,7 @@ import { profile, UserProfileResponse } from 'api/profile';
 import { AxiosError } from 'axios';
 import type { ApiError } from 'api/types';
 import type { UserProfile } from './types';
-
+import rootStore from '../instance';
 export class ProfileStore {
   isLoading: boolean = false;
   error: ApiError | null = null;
@@ -28,7 +28,7 @@ export class ProfileStore {
     };
   }
 
-  async fetchProfile(): Promise<boolean> {
+  async fetchProfile() {
     runInAction(() => {
       this.error = null;
       this.isLoading = true;
@@ -39,12 +39,11 @@ export class ProfileStore {
       runInAction(() => {
         this.setProfile(profileData);
       });
-      return true;
     } catch (error) {
       runInAction(() => {
         this.error = error instanceof AxiosError && error.response?.data.error;
       });
-      return false;
+      rootStore.auth.logout();
     } finally {
       runInAction(() => {
         this.isLoading = false;

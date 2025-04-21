@@ -10,6 +10,7 @@ import { IconColor } from 'components/icons/Icon';
 import MenuIcon from 'components/icons/MenuIcon';
 import CrossIcon from 'components/icons/CrossIcon';
 import SignInIcon from 'components/icons/SignInIcon';
+import CartIcon from 'components/icons/CartIcon';
 import { useAuth } from 'store/rootStore/authStore/useAuth';
 import { useClickOutside } from 'utils/useClickOutside';
 
@@ -71,6 +72,9 @@ const Header = () => {
         {isAuthenticated ? (
           <>
             <LikeIcon color={IconColor.ACCENT} onClick={() => navigate('/saved-recipes')} />
+            <div className={style.cartIconWrapper}>
+              <CartIcon color={IconColor.ACCENT} onClick={() => navigate('/cart')} />
+            </div>
             <div ref={ref} className={style.profileMenuWrapper}>
               <UserIcon color={IconColor.ACCENT} onClick={() => setIsProfileMenuOpen(true)} />
               {isProfileMenuOpen && (

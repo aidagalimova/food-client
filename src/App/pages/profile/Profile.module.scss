@@ -64,9 +64,3 @@
     text-align: center;
   }
 }
-
-.loaderContainer {
-  @include flex-container(column, center, center);
-
-  padding: $space-xxxl;
-}

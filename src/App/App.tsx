@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import Header from 'components/Header';
-import Loader from 'components/Loader';
+import PageLoader from 'components/PageLoader';
 import { useQueryParamsStoreInit } from 'store/rootStore/queryParamsStore';
 
 import style from './App.module.scss';
@@ -13,13 +13,7 @@ function App() {
     <>
       <Header />
       <div className={style.pageContainer}>
-        <Suspense
-          fallback={
-            <div className={style.loaderContainer}>
-              <Loader />
-            </div>
-          }
-        >
+        <Suspense fallback={<PageLoader />}>
           <Routes />
         </Suspense>
       </div>

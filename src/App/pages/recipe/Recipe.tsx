@@ -1,9 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
-import Loader from 'components/Loader';
 import Text, { TextTag, TextView, TextWeight } from 'components/Text';
 import ArrowLeftIcon from 'components/icons/ArrowLeftIcon';
 import { IconColor } from 'components/icons/Icon';
 import ErrorText from 'components/ErrorText';
+import PageLoader from 'components/PageLoader';
 import RecipeInfo from './components/RecipeInfo';
 import RecipeNeeds from './components/RecipeNeeds';
 import RecipeDirections from './components/RecipeDirections';
@@ -25,11 +25,7 @@ const Recipe = observer(() => {
   }
 
   if (isLoading || !recipe) {
-    return (
-      <div className={style.loaderContainer}>
-        <Loader />
-      </div>
-    );
+    return <PageLoader />;
   }
 
   return (

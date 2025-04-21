@@ -72,10 +72,13 @@ const recipesApi = {
     return response.data;
   },
 
-  getRecipeById: async (id: string) => {
+  getRecipeById: async (
+    id: string,
+    populate: string[] = ['ingradients', 'equipments', 'directions.image', 'images', 'category'],
+  ) => {
     const response = await axiosApi.get<SingleRecipeResponse>(`recipes/${id}`, {
       params: {
-        populate: ['ingradients', 'equipments', 'directions.image', 'images', 'category'],
+        populate,
       },
     });
     return response.data;

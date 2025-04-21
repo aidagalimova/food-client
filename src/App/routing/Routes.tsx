@@ -6,8 +6,9 @@ const LazyRecipes = React.lazy(() => import('../pages/recipes'));
 const LazyRecipe = React.lazy(() => import('../pages/recipe'));
 const LazyNotFound = React.lazy(() => import('../pages/notFound'));
 const LazyMain = React.lazy(() => import('../pages/main'));
-const LazyAuth = React.lazy(() => import('../pages/auth/Auth'));
-const LazyProfile = React.lazy(() => import('../pages/profile/Profile'));
+const LazyAuth = React.lazy(() => import('../pages/auth'));
+const LazyProfile = React.lazy(() => import('../pages/profile'));
+const LazyCart = React.lazy(() => import('../pages/cart'));
 
 const Routes = () => {
   return (
@@ -39,6 +40,16 @@ const Routes = () => {
           </PrivateRoute>
         }
       />
+
+      <Route
+        path="/cart"
+        element={
+          <PrivateRoute>
+            <LazyCart />
+          </PrivateRoute>
+        }
+      />
+
       <Route path="/login" element={<LazyAuth />} />
       <Route path="/register" element={<LazyAuth />} />
       <Route path="*" element={<LazyNotFound />} />

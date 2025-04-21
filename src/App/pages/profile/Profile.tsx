@@ -1,19 +1,16 @@
 import { observer } from 'mobx-react-lite';
 import Text, { TextColor, TextTag, TextView, TextWeight } from 'components/Text';
+import AvatarIcon from 'components/icons/AvatarIcon';
+import PageLoader from 'components/PageLoader';
 import { useProfile } from 'store/rootStore/profileStore';
 
 import style from './Profile.module.scss';
-import Loader from 'components/Loader';
-import AvatarIcon from 'components/icons/AvatarIcon';
+
 const Profile = observer(() => {
   const { profile, isLoading, error } = useProfile();
 
   if (isLoading) {
-    return (
-      <div className={style.loaderContainer}>
-        <Loader />
-      </div>
-    );
+    return <PageLoader />;
   }
 
   if (error) {

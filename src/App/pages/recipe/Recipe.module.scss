@@ -18,9 +18,3 @@
 .recipeContent {
   @include flex-container(column, flex-start, flex-start, $space-xxxl);
 }
-
-.loaderContainer {
-  @include flex-container(column, center, center);
-
-  padding: $space-xxxl;
-}

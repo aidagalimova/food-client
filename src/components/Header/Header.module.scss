@@ -32,6 +32,11 @@
   @include flex-container(row, flex-start, center, $space-m, unset);
 }
 
+.cartIconWrapper {
+  display: flex;
+  cursor: pointer;
+}
+
 .profileMenuWrapper {
   position: relative;
   display: flex;
