@@ -2,7 +2,6 @@ import { memo, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import Text, { TextView, TextWeight } from 'components/Text';
-import LikeIcon from 'components/icons/LikeIcon';
 import UserIcon from 'components/icons/UserIcon';
 import LogoIcon from 'components/icons/LogoIcon';
 import Link from 'components/Link';
@@ -12,11 +11,11 @@ import CrossIcon from 'components/icons/CrossIcon';
 import SignInIcon from 'components/icons/SignInIcon';
 import CartIcon from 'components/icons/CartIcon';
 import { useAuth } from 'store/rootStore/authStore/useAuth';
+import { useProfile } from 'store/rootStore/profileStore';
 import { useClickOutside } from 'utils/useClickOutside';
 
 import { links } from './Header.const';
 import style from './Header.module.scss';
-import { useProfile } from 'store/rootStore/profileStore';
 
 const Header = () => {
   const location = useLocation();
@@ -71,7 +70,6 @@ const Header = () => {
       <div className={style.rightSideIcons}>
         {isAuthenticated ? (
           <>
-            <LikeIcon color={IconColor.ACCENT} onClick={() => navigate('/saved-recipes')} />
             <div className={style.cartIconWrapper}>
               <CartIcon color={IconColor.ACCENT} onClick={() => navigate('/cart')} />
             </div>

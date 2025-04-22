@@ -62,19 +62,21 @@ const Profile = observer(() => {
               <div className={style.avatar} />
               <AvatarIcon className={style.avatarIcon} />
             </div>
-            <div className={style.details}>
-              <Text tag={TextTag.H2} view={TextView.TITLE}>
-                {profile.username}
-              </Text>
-              <Text tag={TextTag.P} view={TextView.P_16} color={TextColor.SECONDARY}>
-                Email: {profile.email}
-              </Text>
-              <Text tag={TextTag.P} view={TextView.P_14} color={TextColor.SECONDARY}>
-                Created at: {profile.createdAt.toLocaleDateString()}
-              </Text>
-              <Text tag={TextTag.P} view={TextView.P_14} color={TextColor.SECONDARY}>
-                Updated at: {profile.updatedAt.toLocaleDateString()}
-              </Text>
+            <div className={style.body}>
+              <div className={style.details}>
+                <Text tag={TextTag.H2} view={TextView.TITLE}>
+                  {profile.username}
+                </Text>
+                <Text tag={TextTag.P} view={TextView.P_16} color={TextColor.SECONDARY}>
+                  Email: {profile.email}
+                </Text>
+                <Text tag={TextTag.P} view={TextView.P_14} color={TextColor.SECONDARY}>
+                  Created at: {profile.createdAt.toLocaleDateString()}
+                </Text>
+                <Text tag={TextTag.P} view={TextView.P_14} color={TextColor.SECONDARY}>
+                  Updated at: {profile.updatedAt.toLocaleDateString()}
+                </Text>
+              </div>
               <Button onClick={handleOpenChangePassword} className={style.changePasswordButton}>
                 Change Password
               </Button>
