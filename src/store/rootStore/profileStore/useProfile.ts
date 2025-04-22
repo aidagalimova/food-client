@@ -3,7 +3,7 @@ import rootStore from '../instance';
 
 export const useProfile = () => {
   const { isLoading, error, profile, fetchProfile, clearProfile } = rootStore.profile;
-
+  const { isAuthenticated } = rootStore.auth;
   const handleFetchProfile = useCallback(async () => {
     await fetchProfile();
   }, []);
@@ -13,7 +13,9 @@ export const useProfile = () => {
   }, []);
 
   useEffect(() => {
-    handleFetchProfile();
+    if (isAuthenticated) {
+      handleFetchProfile();
+    }
   }, [handleFetchProfile]);
 
   return {

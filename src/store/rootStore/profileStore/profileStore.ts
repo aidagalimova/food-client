@@ -43,7 +43,6 @@ export class ProfileStore {
       runInAction(() => {
         this.error = error instanceof AxiosError && error.response?.data.error;
       });
-      rootStore.auth.logout();
     } finally {
       runInAction(() => {
         this.isLoading = false;
