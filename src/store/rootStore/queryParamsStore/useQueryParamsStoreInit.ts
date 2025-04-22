@@ -9,9 +9,11 @@ export const useQueryParamsStoreInit = (): void => {
 
   useEffect(() => {
     rootStore.query.setSearch(search);
-  }, []);
-
-  useEffect(() => {
     rootStore.query.setUrlUpdater(setSearchParams);
-  }, [setSearchParams]);
+
+    return () => {
+      rootStore.query.setUrlUpdater(null);
+      rootStore.query.clearParams();
+    };
+  }, [search, setSearchParams]);
 };
