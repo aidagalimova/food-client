@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-
+import router from '../App/routing/Routes';
 export const axiosApi = axios.create({
   baseURL: process.env.API_URL,
   paramsSerializer: {
@@ -24,7 +24,7 @@ axiosApi.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('jwt');
-      window.location.href = '/login';
+      window.location.href = '#/login';
     }
     return Promise.reject(error);
   },
