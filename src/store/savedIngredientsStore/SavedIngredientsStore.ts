@@ -49,10 +49,14 @@ class SavedIngredientsStore {
     return !!(recipeIngredients && recipeIngredients[ingredientId]);
   }
 
-  handleIngredientToggle(ingredient: Ingredient, recipeId: string) {
+  handleIngredientToggle(ingredient: Ingredient, recipeId: string, servingsMultiplier: number = 1) {
     runInAction(() => {
       if (!this.savedIngredients[recipeId]) {
-        this.savedIngredients[recipeId] = { [ingredient.id]: ingredient };
+        const adjustedIngredient = {
+          ...ingredient,
+          amount: ingredient.amount * servingsMultiplier,
+        };
+        this.savedIngredients[recipeId] = { [ingredient.id]: adjustedIngredient };
         this.saveToStorage();
         return;
       }
@@ -65,7 +69,11 @@ class SavedIngredientsStore {
           delete ingredients[recipeId];
         }
       } else {
-        ingredients[recipeId][ingredient.id] = ingredient;
+        const adjustedIngredient = {
+          ...ingredient,
+          amount: ingredient.amount * servingsMultiplier,
+        };
+        ingredients[recipeId][ingredient.id] = adjustedIngredient;
       }
 
       this.savedIngredients = ingredients;
@@ -73,11 +81,16 @@ class SavedIngredientsStore {
     });
   }
 
-  addAllRecipeIngredients(ingredients: Ingredient[], recipeId: string) {
+  addAllRecipeIngredients(ingredients: Ingredient[], recipeId: string, servingsMultiplier: number = 1) {
     runInAction(() => {
       const recipeIngredients = ingredients.reduce((acc, ingredient) => {
-        return { ...acc, [ingredient.id]: ingredient };
+        const adjustedIngredient = {
+          ...ingredient,
+          amount: ingredient.amount * servingsMultiplier,
+        };
+        return { ...acc, [ingredient.id]: adjustedIngredient };
       }, {});
+
       this.savedIngredients = { ...this.savedIngredients, [recipeId]: recipeIngredients };
       this.saveToStorage();
     });

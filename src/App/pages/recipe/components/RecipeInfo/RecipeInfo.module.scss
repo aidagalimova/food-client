@@ -46,6 +46,17 @@
   @include flex-container(column, center, center, $space-xxs, fit-content);
 }
 
+.servingsControl {
+  @include flex-container(row, center, center, $space-xs);
+}
+
+.servingsButton {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  min-width: unset;
+}
+
 @media (max-width: $screen-l) {
   .recipeInfoHeader {
     gap: $space-m;

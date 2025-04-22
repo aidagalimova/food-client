@@ -75,9 +75,6 @@
 }
 
 @media (max-width: $screen-s) {
-  .container {
-    padding: 16px;
-  }
   .additionalFiltersContainer {
     flex-direction: column;
     align-items: flex-start;

@@ -72,6 +72,9 @@ const Profile = observer(() => {
               <Text tag={TextTag.P} view={TextView.P_14} color={TextColor.SECONDARY}>
                 Created at: {profile.createdAt.toLocaleDateString()}
               </Text>
+              <Text tag={TextTag.P} view={TextView.P_14} color={TextColor.SECONDARY}>
+                Updated at: {profile.updatedAt.toLocaleDateString()}
+              </Text>
               <Button onClick={handleOpenChangePassword} className={style.changePasswordButton}>
                 Change Password
               </Button>

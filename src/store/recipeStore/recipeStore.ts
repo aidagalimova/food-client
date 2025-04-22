@@ -7,15 +7,18 @@ class RecipeStore {
   recipe: FullRecipe | null = null;
   isLoading: boolean = false;
   error: ApiError | null = null;
+  servingsMultiplier: number = 1;
 
   constructor() {
     makeObservable(this, {
       recipe: observable.ref,
       isLoading: observable,
       error: observable.ref,
+      servingsMultiplier: observable,
 
       fetchRecipeById: action.bound,
       clearSelectedRecipe: action.bound,
+      setServingsMultiplier: action.bound,
     });
   }
 
@@ -30,6 +33,7 @@ class RecipeStore {
 
       runInAction(() => {
         this.recipe = response.data;
+        this.servingsMultiplier = 1;
         this.isLoading = false;
       });
 
@@ -44,6 +48,13 @@ class RecipeStore {
 
   clearSelectedRecipe() {
     this.recipe = null;
+    this.servingsMultiplier = 1;
+  }
+
+  setServingsMultiplier(multiplier: number) {
+    if (multiplier > 0) {
+      this.servingsMultiplier = multiplier;
+    }
   }
 }
 

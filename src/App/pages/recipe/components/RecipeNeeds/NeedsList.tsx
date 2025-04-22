@@ -36,14 +36,14 @@ const NeedsList = ({ items, type, className }: NeedsListProps) => {
     removeAllRecipeIngredients,
     ingredientsByRecipeId,
   } = useSavedIngredients();
-  const { recipe } = useRecipe();
+  const { recipe, servingsMultiplier } = useRecipe();
   const recipeId = recipe?.documentId;
 
   const isAllIngredientsAdded = recipeId && ingredientsByRecipeId(recipeId).length === items.length;
 
   const handleToggle = (ingredient: Ingredient) => {
     if (recipeId) {
-      handleIngredientToggle(ingredient, recipeId);
+      handleIngredientToggle(ingredient, recipeId, servingsMultiplier);
     }
   };
 
@@ -52,9 +52,14 @@ const NeedsList = ({ items, type, className }: NeedsListProps) => {
       if (isAllIngredientsAdded) {
         removeAllRecipeIngredients(recipeId);
       } else {
-        addAllRecipeIngredients(items as Ingredient[], recipeId);
+        addAllRecipeIngredients(items as Ingredient[], recipeId, servingsMultiplier);
       }
     }
+  };
+
+  const getAdjustedAmount = (amount: number) => {
+    const adjustedAmount = amount * servingsMultiplier;
+    return Number.isInteger(adjustedAmount) ? adjustedAmount : adjustedAmount.toFixed(2);
   };
 
   return (
@@ -82,7 +87,7 @@ const NeedsList = ({ items, type, className }: NeedsListProps) => {
               <EquipmentIcon color={IconColor.ACCENT} />
             )}
             <Text view={TextView.P_16} weight={TextWeight.NORMAL}>
-              {type === NeedType.INGREDIENT && (item as Ingredient).amount} {item.name}
+              {type === NeedType.INGREDIENT && getAdjustedAmount((item as Ingredient).amount)} {item.name}
             </Text>
             {type === NeedType.INGREDIENT && (
               <Button
