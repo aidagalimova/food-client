@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import Text, { TextView, TextWeight } from 'components/Text';
@@ -34,6 +34,10 @@ const Header = () => {
     handleLogout();
     setIsProfileMenuOpen(false);
   };
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const navigation = useMemo(() => {
     return (
@@ -77,7 +81,13 @@ const Header = () => {
               <UserIcon color={IconColor.ACCENT} onClick={() => setIsProfileMenuOpen(true)} />
               {isProfileMenuOpen && (
                 <div className={style.profileMenu}>
-                  <div className={style.profileMenuItem} onClick={() => navigate('/profile')}>
+                  <div
+                    className={style.profileMenuItem}
+                    onClick={() => {
+                      navigate('/profile');
+                      setIsProfileMenuOpen(false);
+                    }}
+                  >
                     <Text view={TextView.P_16}>My Profile ({profile?.username})</Text>
                   </div>
                   <div className={style.profileMenuItem} onClick={handleSignOut}>
