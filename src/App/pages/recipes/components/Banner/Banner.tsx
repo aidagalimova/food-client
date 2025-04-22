@@ -1,6 +1,6 @@
 import Text, { TextView, TextTag } from 'components/Text';
 
-import bannerImg from './images/banner1.jpg';
+import bannerImg from '@/assets/images/banners/banner1.jpg';
 import style from './Banner.module.scss';
 
 const Description = () => {
