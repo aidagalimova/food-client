@@ -1,6 +1,6 @@
 import DOMPurify from 'dompurify';
 import { observer } from 'mobx-react-lite';
-import Text, { TextView, TextWeight, TextColor } from 'components/Text';
+import Text, { TextView, TextWeight, TextColor, TextTag } from 'components/Text';
 import Button, { ButtonVariant } from 'components/Button';
 import { useRecipe } from 'store/recipeStore';
 import MinusIcon from 'components/icons/MinusIcon';
@@ -29,7 +29,8 @@ const RecipeInfo = observer(
 
     const handleDecrease = () => {
       if (servingsMultiplier >= step) {
-        setServingsMultiplier(servingsMultiplier - step);
+        const newMultiplier = parseFloat((servingsMultiplier - step).toFixed(4));
+        setServingsMultiplier(newMultiplier);
       }
     };
 
@@ -74,7 +75,7 @@ const RecipeInfo = observer(
                     {info.title}
                   </Text>
 
-                  <Text view={TextView.P_16} weight={TextWeight.SEMIBOLD} color={TextColor.ACCENT}>
+                  <Text view={TextView.P_16} weight={TextWeight.SEMIBOLD} color={TextColor.ACCENT} tag={TextTag.SPAN}>
                     {info.value}
                   </Text>
                 </div>
