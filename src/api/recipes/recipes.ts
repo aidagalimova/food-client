@@ -1,7 +1,7 @@
 import { axiosApi } from '../api';
 import type { RecipeResponse, SingleRecipeResponse } from './types';
 
-interface GetRecipesParams {
+type GetRecipesParams = {
   page?: number;
   pageSize?: number;
   searchText?: string;
@@ -11,7 +11,7 @@ interface GetRecipesParams {
   cookingTime?: number | null;
   preparationTime?: number | null;
   vegetarian?: boolean | null;
-}
+};
 
 const recipesApi = {
   getRecipes: async ({
@@ -72,10 +72,13 @@ const recipesApi = {
     return response.data;
   },
 
-  getRecipeById: async (id: string) => {
+  getRecipeById: async (
+    id: string,
+    populate: string[] = ['ingradients', 'equipments', 'directions.image', 'images', 'category'],
+  ) => {
     const response = await axiosApi.get<SingleRecipeResponse>(`recipes/${id}`, {
       params: {
-        populate: ['ingradients', 'equipments', 'directions.image', 'images', 'category'],
+        populate,
       },
     });
     return response.data;

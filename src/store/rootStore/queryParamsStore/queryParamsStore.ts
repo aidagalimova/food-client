@@ -1,6 +1,6 @@
 import { action, makeObservable, observable, reaction } from 'mobx';
 import qs from 'qs';
-
+import { SetURLSearchParams } from 'react-router-dom';
 type PrivateFields = '_params';
 
 export enum FilterParams {
@@ -16,33 +16,27 @@ export enum FilterParams {
 
 export default class QueryParamsStore {
   private _params: qs.ParsedQs = {};
-  private _search: string = '';
-  private _setSearchParams: ((query: string, options?: { replace?: boolean }) => void) | null = null;
-  private _disposer: (() => void) | null = null;
+  private _setSearchParams: SetURLSearchParams | null = null;
 
   constructor() {
     makeObservable<QueryParamsStore, PrivateFields>(this, {
       _params: observable.ref,
       setSearch: action,
     });
-  }
 
-  setUrlUpdater(setSearchParams: (query: string, options?: { replace?: boolean }) => void) {
-    if (this._disposer) {
-      this._disposer();
-    }
-
-    this._setSearchParams = setSearchParams;
-
-    this._disposer = reaction(
+    reaction(
       () => this._params,
       (params) => {
         if (this._setSearchParams) {
           const queryString = qs.stringify(params);
-          this._setSearchParams(queryString, { replace: true });
+          this._setSearchParams(queryString);
         }
       },
     );
+  }
+
+  setUrlUpdater(handler: SetURLSearchParams | null) {
+    this._setSearchParams = handler;
   }
 
   getParam(key: FilterParams) {
@@ -60,11 +54,12 @@ export default class QueryParamsStore {
     this._params = newParams;
   }
 
+  clearParams() {
+    this._params = {};
+  }
+
   setSearch(search: string) {
-    search = search.startsWith('?') ? search.slice(1) : search;
-    if (this._search !== search) {
-      this._search = search;
-      this._params = qs.parse(search);
-    }
+    const cleanSearch = search.startsWith('?') ? search.slice(1) : search;
+    this._params = qs.parse(cleanSearch);
   }
 }

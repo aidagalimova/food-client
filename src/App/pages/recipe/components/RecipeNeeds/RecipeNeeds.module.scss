@@ -32,6 +32,14 @@
   @include flex-container(column, flex-start, flex-start, $space-xl);
 }
 
+.listHeader {
+  @include flex-container(row, flex-start, center, $space-xxs);
+}
+
+.addAllContainer {
+  cursor: pointer;
+}
+
 .list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

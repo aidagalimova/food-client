@@ -32,8 +32,44 @@
   @include flex-container(row, flex-start, center, $space-m, unset);
 }
 
+.cartIconWrapper {
+  display: flex;
+  cursor: pointer;
+}
+
+.profileMenuWrapper {
+  position: relative;
+  display: flex;
+}
+
+.profileMenu {
+  position: absolute;
+  padding: $space-xs 0;
+  top: 48px;
+  right: 0;
+  min-width: 160px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profileMenuItem {
+  width: 100%;
+  padding: $space-s $space-l;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 192, 118, 0.2);
+  }
+}
+
 .rightSideMenu {
   display: none;
+}
+
+.mobileMenuIcons {
+  @include flex-container(row, flex-start, center, $space-m, unset);
 }
 
 @media (max-width: $screen-m) {
@@ -43,13 +79,9 @@
     }
   }
 
-  .rightSideIcons {
-    display: none;
-  }
-
   .rightSideMenu {
     @include flex-container(row, center, center, 0, fit-content);
-
+    padding-left: $space-xl;
     position: relative;
     z-index: 101;
   }

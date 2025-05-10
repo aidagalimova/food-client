@@ -13,6 +13,7 @@
   border: 1px solid $input-border;
   border-radius: 10px;
   font-weight: 400;
+  transition: border-color 0.2s;
 
   @include p-16;
 

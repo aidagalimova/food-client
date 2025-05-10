@@ -12,7 +12,7 @@ export function webpackConfig(options) {
       filename: '[name].[contenthash].js',
       path: paths.build,
       clean: true,
-      publicPath: '/',
+      publicPath: isDev ? '/' : '/food-client/',
     },
 
     plugins: getPlugins(options),

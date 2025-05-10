@@ -10,12 +10,6 @@
   @include flex-container(row, flex-start, center, $space-min);
 }
 
-.loaderContainer {
-  @include flex-container(row, center, center, $space-m);
-
-  padding-bottom: $space-xxl;
-}
-
 .notFound {
   align-self: center;
   padding-bottom: $space-xxl;

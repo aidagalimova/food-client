@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import recipeStore from './recipeStore';
 
 export const useRecipe = (recipeId?: string) => {
-  const { fetchRecipeById, clearSelectedRecipe, recipe, isLoading, error } = recipeStore;
+  const { fetchRecipeById, clearSelectedRecipe, recipe, isLoading, error, servingsMultiplier, setServingsMultiplier } =
+    recipeStore;
 
   useEffect(() => {
     if (recipeId) {
@@ -20,5 +21,7 @@ export const useRecipe = (recipeId?: string) => {
     recipe,
     isLoading,
     error,
+    servingsMultiplier,
+    setServingsMultiplier,
   };
 };

@@ -1,9 +1,37 @@
 .main {
-  @include flex-container(column, center, center);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-xxl;
+  text-align: center;
+}
 
-  height: 300px;
+.features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-xxl;
+  margin: $space-xxl 0;
+  max-width: 1200px;
+}
+
+.feature {
+  @include flex-container(column, center, center, $space-m);
+  padding: $space-xl;
+  background-color: #ffffff;
+  opacity: 0.8;
+  border-radius: $space-xxs;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .link {
-  @include title;
+  margin-top: $space-m;
+  p {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: $screen-m) {
+  .features {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

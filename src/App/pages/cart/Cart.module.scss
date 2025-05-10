@@ -1,0 +1,39 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $space-xxl $space-m;
+
+  @include flex-container(column, flex-start, flex-start, $space-xl);
+}
+
+.list {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recipe {
+  @include flex-container(column, flex-start, flex-start, $space-m);
+  margin-bottom: $space-l;
+}
+
+.ingredientsList {
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  @include flex-container(row, space-between, center);
+  padding: $space-m;
+  background-color: #fff;
+  border-radius: $border-radius;
+  margin-bottom: $space-m;
+}
+
+.itemContent {
+  @include flex-container(row, flex-start, center, $space-m);
+  flex: 1;
+}

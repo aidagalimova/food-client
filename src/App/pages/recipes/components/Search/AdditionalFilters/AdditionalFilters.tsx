@@ -75,7 +75,6 @@ export const AdditionalFilters = observer(({ isOpen }: AdditionalFiltersProps) =
               placeholder="Total time"
               value={localTotalTime?.toString() || ''}
               onChange={(value) => setLocalTotalTime(Number(value) || null)}
-              type="number"
               min={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -89,7 +88,6 @@ export const AdditionalFilters = observer(({ isOpen }: AdditionalFiltersProps) =
               placeholder="Cooking time"
               value={localCookingTime?.toString() || ''}
               onChange={(value) => setLocalCookingTime(Number(value) || null)}
-              type="number"
               min={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -103,7 +101,6 @@ export const AdditionalFilters = observer(({ isOpen }: AdditionalFiltersProps) =
               placeholder="Preparation time"
               value={localPreparationTime?.toString() || ''}
               onChange={(value) => setLocalPreparationTime(Number(value) || null)}
-              type="number"
               min={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {

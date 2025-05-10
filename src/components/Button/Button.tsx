@@ -19,12 +19,12 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 const Button = ({ loading, children, className, variant = ButtonVariant.PRIMARY, ...props }: ButtonProps) => {
   return (
     <button
-      disabled={loading}
+      {...props}
+      disabled={loading || props.disabled}
       className={clsx(style.btn, className, {
         [style.loading]: loading,
         [style.secondary]: variant === ButtonVariant.SECONDARY,
       })}
-      {...props}
     >
       {loading && <Loader size={LoaderSize.Small} className={style.btnLoader} />}
 

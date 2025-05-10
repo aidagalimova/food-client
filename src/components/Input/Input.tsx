@@ -15,8 +15,8 @@ const Input = ({ value, onChange, afterSlot, className, ...props }: InputProps) 
         className={clsx(style.input, { [style.withAfterSlot]: !!afterSlot })}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        {...props}
         type="text"
+        {...props}
       />
 
       {afterSlot && <div className={style.afterSlot}>{afterSlot}</div>}

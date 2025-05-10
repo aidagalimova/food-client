@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
+import PageLoader from 'components/PageLoader';
 import Card from 'components/Card';
-import Loader from 'components/Loader';
 import Text, { TextView } from 'components/Text';
 import TimeIcon from 'components/icons/TimeIcon';
 import { IconColor } from 'components/icons/Icon';
@@ -17,11 +17,7 @@ const RecipesList = observer(() => {
   const { recipes, isLoading, error } = useRecipes();
 
   if (isLoading) {
-    return (
-      <div className={style.loaderContainer}>
-        <Loader />
-      </div>
-    );
+    return <PageLoader />;
   }
 
   if (error) {
